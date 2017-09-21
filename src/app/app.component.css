@@ -16,3 +16,9 @@
   background-size: contain;
   background-position: center;
 }
+
+@media screen and (max-width: 600px) {
+  .background-img {
+    background-size: 100% 100%;
+  }
+}
