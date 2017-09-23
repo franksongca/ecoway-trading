@@ -1,0 +1,18 @@
+{
+  "websiteStatus": "2",
+  "comments": "0: coming soon, 1: maintaining, 2: active",
+  "appTitle": "ECO-WAY TRADING",
+  "domain": "ecowaytrading.ca",
+  "menu": [
+    {"id": 1, "name": "About"},
+    {"id": 2, "name": "Products"},
+    {"id": 3, "name": "Service"},
+    {"id": 4, "name": "Contact Us"}
+  ],
+  "carousel": [
+    {"img": "", "prod": "", "desc": ""},
+    {"img": "", "prod": "", "desc": ""},
+    {"img": "", "prod": "", "desc": ""},
+    {"img": "", "prod": "", "desc": ""}
+  ]
+}

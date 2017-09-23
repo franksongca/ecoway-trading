@@ -1,0 +1,26 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  cursor: pointer;
+  float: left;
+  border: 1px solid white;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 18px;
+  text-decoration: none;
+}
+
+
+
+
+@media screen and (max-width: 600px) {
+}

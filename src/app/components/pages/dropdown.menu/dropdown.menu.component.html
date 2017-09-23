@@ -1,0 +1,5 @@
+<div class="menu-container">
+  <ul>
+    <li *ngFor="let menuItem of menu" class="menu-item">{{idx}}<a href="#" (click)="doAction(menuItem.id)">{{menuItem.name}}</a></li>
+  </ul>
+</div>

@@ -1,5 +1,7 @@
-<coming-soon>
-</coming-soon>
+<coming-soon *ngIf="websiteStatus === '0'"></coming-soon>
+<app-maintaining *ngIf="websiteStatus === '1'"></app-maintaining>
+<app-homepage *ngIf="websiteStatus === '2'"></app-homepage>
+
 
 <!--div class="container">
   <div class="col-md-8 col-xs-12 col-md-offset-2 push-md-2">
@@ -14,4 +16,5 @@
     </carousel>
   </div>
 </div-->
+
 
