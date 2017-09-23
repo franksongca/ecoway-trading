@@ -2,16 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { ActionService } from './../../../services/action.service';
 
 @Component({
-  selector: 'app-homepage',
-  templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.css']
+  selector: 'app-mainpage',
+  templateUrl: './mainpage.component.html',
+  styleUrls: ['./mainpage.component.css']
 })
-export class HomepageComponent implements OnInit {
-
+export class MainpageComponent implements OnInit {
+  currentPage = 0;
+  
   constructor() {
     ActionService.Action = 0;
     ActionService.onMenuItemSelected.subscribe((action) => {
-      alert(action)
+      this.currentPage = action;
+
+      ActionService.closeDropdown();
+      
       switch (action) {
         case ActionService.ACTIONS.ABOUT:
               break;

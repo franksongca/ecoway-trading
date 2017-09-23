@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuShared } from './../menu.shared';
+import { MenuShared } from '../menu.shared';
 
 @Component({
   selector: 'dropdown-menu',

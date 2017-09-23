@@ -1,5 +1,5 @@
-import { ConfigService } from './../../services/config.service';
-import { ActionService } from './../../services/action.service';
+import { ConfigService } from '../../../services/config.service';
+import { ActionService } from '../../../services/action.service';
 
 export class MenuShared {
   action = 0;

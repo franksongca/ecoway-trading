@@ -1,0 +1,6 @@
+.page-container {
+  background-color: aqua;
+}
+
+@media screen and (max-width: 600px) {
+}

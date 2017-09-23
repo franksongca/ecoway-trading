@@ -6,3 +6,19 @@ body {
   background: linear-gradient(135deg,  rgba(208,228,247,1) 0%,rgba(115,177,231,1) 24%,rgba(10,119,213,1) 50%,rgba(83,159,225,1) 79%,rgba(135,188,234,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0e4f7', endColorstr='#87bcea',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
+
+.page-container {
+  position: fixed;
+  top: 140px;
+  display: block;
+  width: 100%;
+  height: calc(100% - 140px);
+  background-color: blue;
+}
+
+@media screen and (max-width: 600px) {
+  .page-container {
+    top: 100px;
+    height: calc(100% - 100px);
+  }
+}
