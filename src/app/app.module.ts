@@ -2,9 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { AlertModule } from 'ngx-bootstrap/alert';
-
-import { CarouselModule } from '../../node_modules/ngx-bootstrap/carousel';
-
+import { Ng2CarouselamosModule } from 'ng2-carouselamos'; 
 import { AppComponent } from './app.component';
 import { ComingSoonComponent } from './components/coming.soon/coming.soon.component';
 import { ConfigService } from './services/config.service';
@@ -41,7 +39,7 @@ import { FooterComponent } from './components/pages/footer/footer.component';
     AlertModule.forRoot(),
     HttpModule,
     BrowserModule,
-    CarouselModule.forRoot()
+    Ng2CarouselamosModule
   ],
   providers: [
     ConfigService,

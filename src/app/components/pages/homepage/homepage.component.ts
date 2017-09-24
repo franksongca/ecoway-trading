@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfigService } from '../../../services/config.service';
 
 @Component({
   selector: 'app-homepage',
@@ -6,8 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
+  carousel;
 
-  constructor() { }
+  constructor(){
+    ConfigService.getConfig().subscribe(
+      response => {
+        this.carousel = response.carousel;
+      },
+      () => console.log('load config error occurs!')
+    );
+  }
 
   ngOnInit() {
   }

@@ -1,5 +1,5 @@
 .banner {
-  position: fixed;
+  position: absolute;
   background-color: red;
   height: 140px;
   width: 100vw;
