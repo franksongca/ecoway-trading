@@ -19,6 +19,7 @@ import { AbortpageComponent } from './components/pages/abortpage/abortpage.compo
 import { ProductsComponent } from './components/pages/products/products.component';
 import { ServicesComponent } from './components/pages/services/services.component';
 import { ContactComponent } from './components/pages/contact/contact.component';
+import { FooterComponent } from './components/pages/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ContactComponent } from './components/pages/contact/contact.component';
     AbortpageComponent,
     ProductsComponent,
     ServicesComponent,
-    ContactComponent
+    ContactComponent,
+    FooterComponent
   ],
   imports: [
     AlertModule.forRoot(),
