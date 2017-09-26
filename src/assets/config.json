@@ -12,23 +12,14 @@
     {"id": 4, "name": "Contact Us"}
   ],
   "carousel": {
-    "interval": 5000,
     "items": [
       {"img": "./assets/img/carousel/1.jpg", "size": {"width": 1042, "height": 1888}, "prod": "NAME 1", "desc": "desc 1"},
-      {"img": "./assets/img/carousel/2.jpg", "prod": "NAME 2", "desc": "desc 2"},
-      {"img": "./assets/img/carousel/3.jpg", "prod": "NAME 3", "desc": "desc 3"},
-      {"img": "./assets/img/carousel/4.jpg", "prod": "NAME 4", "desc": "desc 4"},
-      {"img": "./assets/img/carousel/5.jpg", "prod": "NAME 5", "desc": "desc 5"},
-      {"img": "./assets/img/carousel/6.jpg", "prod": "NAME 6", "desc": "desc 6"},
-      {"img": "./assets/img/carousel/7.jpg", "prod": "NAME 7", "desc": "desc 7"},
-      {"img": "./assets/img/carousel/8.jpg", "prod": "NAME 8", "desc": "desc 8"},
-      {"img": "./assets/img/carousel/9.jpg", "prod": "NAME 9", "desc": "desc 9"},
-      {"img": "./assets/img/carousel/10.jpg", "prod": "NAME 10", "desc": "desc 10"},
-      {"img": "./assets/img/carousel/11.jpg", "prod": "NAME 11", "desc": "desc 11"},
-      {"img": "./assets/img/carousel/12.jpg", "prod": "NAME 12", "desc": "desc 12"},
-      {"img": "./assets/img/carousel/13.jpg", "prod": "NAME 13", "desc": "desc 13"},
-      {"img": "./assets/img/carousel/14.jpg", "prod": "NAME 14", "desc": "desc 14"},
-      {"img": "./assets/img/carousel/15.jpg", "prod": "NAME 15", "desc": "desc 15"}
+      {"img": "./assets/img/carousel/2.jpg", "size": {"width": 1042, "height": 1888}, "prod": "NAME 2", "desc": "desc 2"},
+      {"img": "./assets/img/carousel/4.jpg", "size": {"width": 594, "height": 498}, "prod": "NAME 3", "desc": "desc 3"},
+      {"img": "./assets/img/carousel/5.jpg", "size": {"width": 1280, "height": 960}, "prod": "NAME 4", "desc": "desc 4"},
+      {"img": "./assets/img/carousel/6.jpg", "size": {"width": 736, "height": 878}, "prod": "NAME 5", "desc": "desc 5"},
+      {"img": "./assets/img/carousel/7.gif", "size": {"width": 713, "height": 420}, "prod": "NAME 6", "desc": "desc 6"},
+      {"img": "./assets/img/carousel/6.jpg", "size": {"width": 736, "height": 982}, "prod": "NAME 7", "desc": "desc 7"}
     ]
   }
 }

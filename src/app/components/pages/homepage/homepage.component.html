@@ -1,26 +1,32 @@
 <div class="page-container">
-  <div class="carousel-container"
-    ng2-carouselamos
-    class="slides-wrapper"
-    [items]="carousel.items"
-    [width]="carouselWidth"
-    [$prev]="prev"
-    [$next]="next"
-    [$item]="item"
-  >
-  </div>
+  <div  class="carousel-container">
+    <div
+      ng2-carouselamos
+      class="slides-wrapper"
+      [items]="carousel.items"
+      [width]="carouselWidth"
+      [$prev]="prev"
+      [$next]="next"
+      [$item]="item"
 
-
-  <ng-template #prev>
-    <img src="assets/img/arrow-left.png" id="left" />
-  </ng-template>
-  <ng-template #next>
-    <img src="assets/img/arrow-right.png" id="right" />
-  </ng-template>
-  <ng-template #item let-item let-i="index">
-
-    <div class="items">
-      <img src="{{ item.img }}">
+    >
     </div>
 
-  </ng-template>
+
+    <ng-template #prev>
+      <img src="assets/img/arrow-left.png" id="left" />
+    </ng-template>
+    <ng-template #next>
+      <img src="assets/img/arrow-right.png" id="right" />
+    </ng-template>
+    <ng-template #item let-item let-i="index">
+
+      <div class="items" [ngStyle]="{'width': carouselInfo.carouselItemWidth + 'px', 'height': carouselInfo.carouselHeight + 'px', 'background-image': 'url('+item.img+')'}">
+        <!--img src="{{ item.img }}"-->
+        <h2>{{item.prod}}</h2>
+        <p>{{item.desc}}</p>
+      </div>
+
+    </ng-template>
+  </div>
+</div>

@@ -9,6 +9,10 @@ import { ConfigService } from '../../../services/config.service';
 export class HomepageComponent implements OnInit {
   carouselWidth = window.innerWidth;
   carousel;
+  carouselInfo = {
+    carouselItemWidth: 320,
+    carouselHeight: 340
+  }
 
   @HostListener('window:resize', ['$event'])
 

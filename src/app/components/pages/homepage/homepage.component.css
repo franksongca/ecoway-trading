@@ -2,10 +2,16 @@
   background-color: blue;
 }
 
+.carousel-container {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: 1px solid black;
+}
 
 .items {
-  height: 500px;
   background:#ECECEC;
+  background-repeat: no-repeat;
+  background-clip: content-box;
 }
 
 #left, #right {
@@ -18,15 +24,11 @@
   background-color: transparent;
 }
 
-
 @media screen and (max-width: 1000px) {
   #left, #right {
     width: 60px;
     height: 60px;
     margin: 20px;
-  }
-  .items {
-    height: 320px;
   }
 }
 
@@ -36,10 +38,5 @@
     height: 40px;
     margin: 15px;
   }
-
-  .items {
-    height: 240px;
-  }
-
 }
 
