@@ -63,3 +63,8 @@ body {
     opacity: 1;
   }
 }
+
+button, button:hover, button:active  {
+  outline: none;
+  border: none;
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ConfigService } from '../../../services/config.service';
 
 @Component({
@@ -7,7 +7,14 @@ import { ConfigService } from '../../../services/config.service';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
+  carouselWidth = window.innerWidth;
   carousel;
+
+  @HostListener('window:resize', ['$event'])
+
+  onResize(event) {
+    this.carouselWidth = event.target.innerWidth;
+  }
 
   constructor(){
     ConfigService.getConfig().subscribe(
