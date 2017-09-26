@@ -7,17 +7,18 @@ import { ConfigService } from '../../../services/config.service';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
-  carouselWidth = window.innerWidth;
   carousel;
   carouselInfo = {
-    carouselItemWidth: 320,
-    carouselHeight: 340
-  }
+    carouselWidth: window.innerWidth,
+    carouselItemWidth: 480,
+    carouselHeight: 270
+}
 
   @HostListener('window:resize', ['$event'])
 
   onResize(event) {
-    this.carouselWidth = event.target.innerWidth;
+    this.adjustCarousel();
+    this.carouselInfo.carouselWidth = event.target.innerWidth;
   }
 
   constructor(){
@@ -30,6 +31,9 @@ export class HomepageComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  adjustCarousel() {
   }
 
 }

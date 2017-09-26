@@ -1,10 +1,10 @@
 <div class="page-container">
-  <div  class="carousel-container">
+  <div  class="carousel-container" [ngStyle]="{'height': carouselInfo.carouselHeight + 'px'}">
     <div
       ng2-carouselamos
       class="slides-wrapper"
       [items]="carousel.items"
-      [width]="carouselWidth"
+      [width]="carouselInfo.carouselWidth"
       [$prev]="prev"
       [$next]="next"
       [$item]="item"
@@ -21,10 +21,10 @@
     </ng-template>
     <ng-template #item let-item let-i="index">
 
-      <div class="items" [ngStyle]="{'width': carouselInfo.carouselItemWidth + 'px', 'height': carouselInfo.carouselHeight + 'px', 'background-image': 'url('+item.img+')'}">
-        <!--img src="{{ item.img }}"-->
-        <h2>{{item.prod}}</h2>
-        <p>{{item.desc}}</p>
+      <div class="items" [ngStyle]="{'min-width': carouselInfo.carouselItemWidth + 'px','width': carouselInfo.carouselItemWidth + 'px', 'height': carouselInfo.carouselHeight + 'px'}">
+        <img src="{{ item.img }}" [ngStyle]="{'width': this.carouselInfo.carouselItemWidth, 'height': auto}">
+        <!--h2>{{item.prod}}</h2>
+        <p>{{item.desc}}</p-->
       </div>
 
     </ng-template>
