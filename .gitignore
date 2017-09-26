@@ -4,6 +4,7 @@
 /dist
 /dist-build
 /tmp
+/temp
 /out-tsc
 
 # dependencies
