@@ -8,8 +8,8 @@ body {
 }
 
 .page-container {
-  position: absolute;
-  top: 140px;
+  position: relative;
+  top: 0px;
   display: block;
   width: 100%;
   height: calc(100% - 140px);
@@ -18,7 +18,6 @@ body {
 
 @media screen and (max-width: 600px) {
   .page-container {
-    top: 100px;
     height: calc(100% - 100px);
   }
 }

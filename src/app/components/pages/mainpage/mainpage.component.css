@@ -1,0 +1,8 @@
+.main-page-container {
+  position: relative;
+  max-width: 900px;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+}

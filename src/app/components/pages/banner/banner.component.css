@@ -1,9 +1,8 @@
 .banner {
-  position: absolute;
-  background-color: red;
+  position: relative;
   height: 140px;
-  width: 100vw;
   z-index: 1001;
+  background-color: red;
 }
 
 .icon {
@@ -25,14 +24,15 @@
   padding: 10px;
   position: relative;
   height: 100%;
+  float: left;
 
   background-color: green;
 }
 
 .horonzontal-menu-n-domain {
-  margin-left: 20px;
-  display: inline-block;
   position: relative;
+  top: 80px;
+  left: 20px;
 }
 
 .company-name {
