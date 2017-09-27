@@ -17,6 +17,7 @@ import { ProductsComponent } from './components/pages/products/products.componen
 import { ServicesComponent } from './components/pages/services/services.component';
 import { ContactComponent } from './components/pages/contact/contact.component';
 import { FooterComponent } from './components/pages/footer/footer.component';
+import { CarouselComponent } from './components/carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { FooterComponent } from './components/pages/footer/footer.component';
     ProductsComponent,
     ServicesComponent,
     ContactComponent,
-    FooterComponent
+    FooterComponent,
+    CarouselComponent
   ],
   imports: [
     AlertModule.forRoot(),

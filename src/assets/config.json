@@ -12,8 +12,6 @@
     {"id": 4, "name": "Contact Us"}
   ],
   "carousel": {
-    "carouselHeight": 270,
-    "minWidth": 480,
     "items": [
       {"img": "./assets/img/carousel/1.jpg", "size": {"width": 1042, "height": 1888}, "prod": "NAME 1", "desc": "desc 1"},
       {"img": "./assets/img/carousel/2.jpg", "size": {"width": 1042, "height": 1888}, "prod": "NAME 2", "desc": "desc 2"},

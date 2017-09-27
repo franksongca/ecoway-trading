@@ -1,3 +1,7 @@
+.menu-container {
+  z-index: 998;
+}
+
 ul {
   list-style-type: none;
   margin: 0;
