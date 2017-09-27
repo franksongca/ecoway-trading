@@ -1,3 +1,20 @@
-<p>
-  carousel works! {{carouselItems.length}}
-</p>
+<ng-template #carousel>
+  <div class="carousel-container">
+    <ul class="carousel-items">
+      <li *ngFor="let carouselItem of carouselItems">
+        <img src="{{item.img}}">
+      </li>
+    </ul>
+
+    <div class="arrow arrow-left">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+    </div>
+    <div class="arrow arrow-right">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+    </div>
+
+
+  </div>
+</ng-template>
+
+<ng-container *ngTemplateOutlet="carousel"></ng-container>

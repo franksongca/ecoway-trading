@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule  } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { AppComponent } from './app.component';

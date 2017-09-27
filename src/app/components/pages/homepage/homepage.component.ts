@@ -7,7 +7,7 @@ import { ConfigService } from '../../../services/config.service';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
-  carousel;
+  carouselItems;
 
   @HostListener('window:resize', ['$event'])
 
@@ -17,7 +17,7 @@ export class HomepageComponent implements OnInit {
   constructor(){
     ConfigService.getConfig().subscribe(
       response => {
-        this.carousel = response.carousel.items;
+        this.carouselItems = response.carousel.items;
       },
       () => console.log('load config error occurs!')
     );
