@@ -1,19 +1,18 @@
 <ng-template #carousel>
-  <div class="carousel-container">
-    <ul class="carousel-items">
-      <li *ngFor="let carouselItem of carouselItems">
-        <img src="{{item.img}}">
-      </li>
-    </ul>
-
+  <div class="carousel-container" [ngStyle]="{'height': carouselInfo.carouselHeight}">
     <div class="arrow arrow-left">
       <span class="glyphicon glyphicon-chevron-left"></span>
     </div>
+    <ul class="carousel-items">
+      <li *ngFor="let carouselItem of carouselItems">
+        <div class="carousel-item-container" [ngStyle]="{'max-width': carouselInfo.maxWidth, 'width': carouselInfo.maxWidth, 'height': carouselInfo.carouselHeight, 'overflow': 'hidden', 'background-image': 'url(' + carouselItem.img + ')'}">
+        <!--img src="{{carouselItem.img}}" [ngStyle]="{'max-width': carouselInfo.maxWidth, 'width': carouselInfo.maxWidth, 'height': carouselInfo.carouselHeight}"-->
+        </div>
+      </li>
+    </ul>
     <div class="arrow arrow-right">
       <span class="glyphicon glyphicon-chevron-right"></span>
     </div>
-
-
   </div>
 </ng-template>
 

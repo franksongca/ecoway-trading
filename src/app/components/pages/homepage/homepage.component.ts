@@ -8,6 +8,10 @@ import { ConfigService } from '../../../services/config.service';
 })
 export class HomepageComponent implements OnInit {
   carouselItems;
+  carouselInfo = {
+    maxWidth: 0,
+    carouselHeight: 0
+  };
 
   @HostListener('window:resize', ['$event'])
 
@@ -17,6 +21,8 @@ export class HomepageComponent implements OnInit {
   constructor(){
     ConfigService.getConfig().subscribe(
       response => {
+        this.carouselInfo.maxWidth = response.carousel.maxWidth;
+        this.carouselInfo.carouselHeight = response.carousel.carouselHeight;
         this.carouselItems = response.carousel.items;
       },
       () => console.log('load config error occurs!')
