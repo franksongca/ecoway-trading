@@ -1,17 +1,17 @@
 <ng-template #carousel>
-  <div class="carousel-container" [ngStyle]="{'height': carouselInfo.carouselHeight}">
-    <div class="arrow arrow-left">
-      <span class="glyphicon glyphicon-chevron-left"></span>
+  <div class="carousel-container" [ngStyle]="{'height': carouselInfo.originallHeight + 'px'}">
+    <div class="arrow arrow-left" [ngClass]="{'clickable': allowMoveRight}" (click)="moveRight()">
+      <span class="glyphicon glyphicon-circle-arrow-left"></span>
     </div>
-    <ul class="carousel-items">
+    <ul class="carousel-items" [ngStyle]="{'width': carouselInfo.originalWidth * carouselItems.length + 'px'}">
       <li *ngFor="let carouselItem of carouselItems">
-        <div class="carousel-item-container" [ngStyle]="{'max-width': carouselInfo.maxWidth, 'width': carouselInfo.maxWidth, 'height': carouselInfo.carouselHeight, 'overflow': 'hidden', 'background-image': 'url(' + carouselItem.img + ')'}">
+        <div #carouselContent class="carousel-item-container" [ngStyle]="{'width': carouselInfo.originalWidth + 'px', 'height': carouselInfo.originalHeight + 'px', 'background-image': 'url(' + carouselItem.img + ')'}">
         <!--img src="{{carouselItem.img}}" [ngStyle]="{'max-width': carouselInfo.maxWidth, 'width': carouselInfo.maxWidth, 'height': carouselInfo.carouselHeight}"-->
         </div>
       </li>
     </ul>
-    <div class="arrow arrow-right">
-      <span class="glyphicon glyphicon-chevron-right"></span>
+    <div class="arrow arrow-right" [ngClass]="{'clickable': allowMoveLeft}" (click)="moveLeft()">
+      <span class="glyphicon glyphicon-circle-arrow-right"></span>
     </div>
   </div>
 </ng-template>

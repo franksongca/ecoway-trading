@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule  } from '@angular/core';
-import { NgTemplateOutlet } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { AppComponent } from './app.component';
@@ -40,7 +40,8 @@ import { CarouselComponent } from './components/carousel/carousel.component';
   imports: [
     AlertModule.forRoot(),
     HttpModule,
-    BrowserModule
+    BrowserModule,
+    BrowserAnimationsModule
   ],
   providers: [
     ConfigService,

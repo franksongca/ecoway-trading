@@ -11,9 +11,13 @@
     {"id": 3, "name": "Service"},
     {"id": 4, "name": "Contact Us"}
   ],
+  "pageInfo": {
+    "contentWidth": 900
+  },
   "carousel": {
-    "maxWidth": "480px",
-    "carouselHeight": "280px",
+    "originalWidth": 450,
+    "originalHeight": 338,
+    "interval": 5000,
     "items": [
       {"img": "./assets/img/carousel/1.jpg", "size": {"width": 1042, "height": 1888}, "prod": "NAME 1", "desc": "desc 1"},
       {"img": "./assets/img/carousel/2.jpg", "size": {"width": 1042, "height": 1888}, "prod": "NAME 2", "desc": "desc 2"},
