@@ -5,7 +5,7 @@
     </div>
     <ul class="carousel-items" [ngStyle]="{'width': carouselInfo.originalWidth * carouselItems.length + 'px'}">
       <li *ngFor="let carouselItem of carouselItems">
-        <div #carouselContent class="carousel-item-container" [ngStyle]="{'width': carouselInfo.originalWidth + 'px', 'height': carouselInfo.originalHeight + 'px', 'background-image': 'url(' + carouselItem.img + ')'}">
+        <div #carouselContent [@move]="moveStyleData" class="carousel-item-container" [ngStyle]="{'width': carouselInfo.originalWidth + 'px', 'height': carouselInfo.originalHeight + 'px', 'background-image': 'url(' + carouselItem.img + ')'}">
         <!--img src="{{carouselItem.img}}" [ngStyle]="{'max-width': carouselInfo.maxWidth, 'width': carouselInfo.maxWidth, 'height': carouselInfo.carouselHeight}"-->
         </div>
       </li>

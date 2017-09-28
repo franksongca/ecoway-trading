@@ -6,7 +6,8 @@
 }
 
 .carousel-item-container {
-  display: inline-block;
+  position: relative;
+  display: block;
   background-repeat: no-repeat;
   background-clip: content-box;
   background-size: 100% auto;

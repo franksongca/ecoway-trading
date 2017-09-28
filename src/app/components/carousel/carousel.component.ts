@@ -1,20 +1,28 @@
-import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
-import { Component, OnInit, Input, HostListener, SimpleChanges, OnChanges, ElementRef, ViewChild } from '@angular/core';
+import { style, transition, animate, trigger, stagger, query } from '@angular/animations';
+import { Component, OnInit, Input, HostListener, SimpleChanges, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'yu-carousel',
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.css'],
-  // animations: [
-  //   trigger('moveAnimation', [
-  //     state('moveLeft',   style({
-  //       transform: translate(50px, 100px)
-  //     })),
-  //   ]),
-  // ]
+  animations: [
+    trigger('move', [
+      transition('* => left', [
+        //style({ marginLeft: '{{ params.from }}' }),
+        // starts to animate things with a stagger in between
+
+        // query('#carouselContent', stagger('100ms', [
+        //   animate('1s', style({left: -320}))
+        // ]), { optional: true })
+
+
+        animate(1000, style({ marginLeft: '-980px' }))
+
+      ])
+    ])
+  ]
 })
 export class CarouselComponent implements OnInit, OnChanges {
-  @ViewChild('carouselContent') el:ElementRef;
   @Input() carouselItems: any;
   @Input() carouselInfo: any;
 
@@ -28,12 +36,25 @@ export class CarouselComponent implements OnInit, OnChanges {
   allowMoveLeft = true;
   allowMoveRight = false;
 
+  moveStyleData = '';
+  public currentMoveDir = 'left';
+  // private moveStyleDataValues = {
+  //   left: { value: 'left;', data: {'moveStyle': { marginLeft: (-1*this.carouselInfo.originalWidth) + 'px'}}},
+  //   right: {value: 'right;', data: {'moveStyle': { marginLeft: this.carouselInfo.originalWidth + 'px'}}}
+  // }
+
+  // get moveStyleData() {
+  //   return this.moveStyleDataValues[this.currentMoveDir];
+  // }
+
   moveLeft() {
-    //this.el.nativeElement.
+    this.moveStyleData = 'left';
+//    this.currentMoveDir = 'left';
   }
 
   moveRight() {
-
+    this.moveStyleData = 'left';
+//    this.currentMoveDir = 'right';
   }
 
 
