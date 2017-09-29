@@ -1,6 +1,14 @@
-.page-container {
-  background-color: gray;
+.banner {
+  position: relative;
+  top: 0;
+  height: 180px;
+  width: 100%;
+  background-image: url(./../../../../assets/img/banner-service.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
+
 
 @media screen and (max-width: 600px) {
 }

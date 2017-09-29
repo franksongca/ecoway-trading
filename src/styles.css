@@ -13,7 +13,6 @@ body {
   display: block;
   width: 100%;
   height: calc(100% - 140px);
-  background-color: blue;
 }
 
 @media screen and (max-width: 600px) {

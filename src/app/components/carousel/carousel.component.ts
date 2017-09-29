@@ -1,5 +1,6 @@
-import { style, transition, animate, trigger, stagger, query } from '@angular/animations';
+import { style, transition, animate, trigger, sequence, stagger, query } from '@angular/animations';
 import { Component, OnInit, Input, HostListener, SimpleChanges, OnChanges } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector: 'yu-carousel',
@@ -7,17 +8,8 @@ import { Component, OnInit, Input, HostListener, SimpleChanges, OnChanges } from
   styleUrls: ['./carousel.component.css'],
   animations: [
     trigger('move', [
-      transition('* => left', [
-        //style({ marginLeft: '{{ params.from }}' }),
-        // starts to animate things with a stagger in between
-
-        // query('#carouselContent', stagger('100ms', [
-        //   animate('1s', style({left: -320}))
-        // ]), { optional: true })
-
-
-        animate(1000, style({ marginLeft: '-980px' }))
-
+      transition('* => *', [
+        animate(1000, style({ left: '{{itemLeft}}' })),
       ])
     ])
   ]
@@ -37,6 +29,11 @@ export class CarouselComponent implements OnInit, OnChanges {
   allowMoveRight = false;
 
   moveStyleData = '';
+  itemLeft = '0px';
+  itemLeftDelay = '0px';
+  animateTime = 1000;
+  timer;
+
   public currentMoveDir = 'left';
   // private moveStyleDataValues = {
   //   left: { value: 'left;', data: {'moveStyle': { marginLeft: (-1*this.carouselInfo.originalWidth) + 'px'}}},
@@ -48,15 +45,35 @@ export class CarouselComponent implements OnInit, OnChanges {
   // }
 
   moveLeft() {
-    this.moveStyleData = 'left';
-//    this.currentMoveDir = 'left';
+    if (this.carouselIndex < this.maxCarouselPieces - 2) {
+      this.carouselIndex++;
+    }
+
+    this.itemLeft = -(this.carouselIndex * this.carouselInfo.originalWidth) + 'px';
+    this.moveStyleData = 'right';
+    this.delaySetLeft();
+    this.updateArrowButtonStatus();
   }
 
   moveRight() {
+    if (this.carouselIndex > 0) {
+      this.carouselIndex--;
+    }
+
+    this.itemLeft = -(this.carouselIndex * this.carouselInfo.originalWidth) + 'px';
     this.moveStyleData = 'left';
-//    this.currentMoveDir = 'right';
+    this.delaySetLeft();
+    this.updateArrowButtonStatus();
   }
 
+
+
+  delaySetLeft() {
+    window.setTimeout(() => {
+      this.itemLeftDelay = this.itemLeft;
+      this.moveStyleData = '';
+    }, 1000);
+  }
 
   constructor() {
     this.adjustCarouselInfo();

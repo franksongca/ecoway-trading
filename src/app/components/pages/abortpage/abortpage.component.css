@@ -1,6 +1,10 @@
-.page-container {
-  background-color: yellow;
+.about-page-container {
+  background-image: url(./../../../../assets/img/about-bg.jpg);
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  background-position: center;
 }
+
 
 @media screen and (max-width: 600px) {
 }

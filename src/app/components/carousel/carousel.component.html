@@ -3,10 +3,9 @@
     <div class="arrow arrow-left" [ngClass]="{'clickable': allowMoveRight}" (click)="moveRight()">
       <span class="glyphicon glyphicon-circle-arrow-left"></span>
     </div>
-    <ul class="carousel-items" [ngStyle]="{'width': carouselInfo.originalWidth * carouselItems.length + 'px'}">
+    <ul [@move]="{value: moveStyleData, params: {itemLeft: itemLeft, animateTime: animateTime}}" [ngStyle]="{'left': itemLeftDelay, 'width': carouselInfo.originalWidth * carouselItems.length + 'px'}">
       <li *ngFor="let carouselItem of carouselItems">
-        <div #carouselContent [@move]="moveStyleData" class="carousel-item-container" [ngStyle]="{'width': carouselInfo.originalWidth + 'px', 'height': carouselInfo.originalHeight + 'px', 'background-image': 'url(' + carouselItem.img + ')'}">
-        <!--img src="{{carouselItem.img}}" [ngStyle]="{'max-width': carouselInfo.maxWidth, 'width': carouselInfo.maxWidth, 'height': carouselInfo.carouselHeight}"-->
+        <div class="carousel-item-container" [ngStyle]="{'width': carouselInfo.originalWidth + 'px', 'height': carouselInfo.originalHeight + 'px', 'background-image': 'url(' + carouselItem.img + ')'}">
         </div>
       </li>
     </ul>
