@@ -6,12 +6,16 @@
 }
 
 .carousel-item-container {
-  position: relative;
+  position: absolute;
+  top: 0;
   display: block;
   background-repeat: no-repeat;
   background-clip: content-box;
   background-size: 100% auto;
   overflow: hidden;
+  -webkit-animation: linear infinite alternate;
+  -webkit-animation-name: run;
+  -webkit-animation-duration: 5s;
 }
 
 .arrow {
@@ -19,15 +23,10 @@
   z-index: 800;
   margin-top: -25px;
   font-size: 50px;
-  color: rgba(240, 250, 250, 0.2);
+  color: rgba(240, 250, 250, 0.8);
   position: absolute;
   top: 50%;
-  cursor: not-allowed;
-}
-
-.arrow.clickable {
   cursor: pointer;
-  color: rgba(240, 250, 250, 0.8);
 }
 
 .arrow-left {
@@ -67,3 +66,10 @@ li {
   }
 }
 
+@-webkit-keyframes move {
+  0% { left: 0;}
+  25%{ left : -25%;}
+  50%{ left: -50%;}
+  75%{ left: -75%;}
+  100%{ left: -100%;}
+}

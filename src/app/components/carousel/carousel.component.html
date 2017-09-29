@@ -1,15 +1,15 @@
 <ng-template #carousel>
   <div class="carousel-container" [ngStyle]="{'height': carouselInfo.originallHeight + 'px'}">
-    <div class="arrow arrow-left" [ngClass]="{'clickable': allowMoveRight}" (click)="moveRight()">
+    <div class="arrow arrow-left" (click)="moveRight()">
       <span class="glyphicon glyphicon-circle-arrow-left"></span>
     </div>
-    <ul [@move]="{value: moveStyleData, params: {itemLeft: itemLeft, animateTime: animateTime}}" [ngStyle]="{'left': itemLeftDelay, 'width': carouselInfo.originalWidth * carouselItems.length + 'px'}">
-      <li *ngFor="let carouselItem of carouselItems">
-        <div class="carousel-item-container" [ngStyle]="{'width': carouselInfo.originalWidth + 'px', 'height': carouselInfo.originalHeight + 'px', 'background-image': 'url(' + carouselItem.img + ')'}">
+    <ul [ngStyle]="{'width': carouselInfo.originalWidth * carouselItems.length + 'px', 'height': carouselInfo.originallHeight + 'px'}">
+      <li *ngFor="let carouselItem of carouselItems; let i = index" [ngStyle]="{'width': carouselInfo.originalWidth + 'px', 'height': carouselInfo.originalHeight + 'px'}">
+        <div class="carousel-item-container" [ngStyle]="{'left': (-2 + i) * carouselInfo.originalWidth + 'px', 'width': carouselInfo.originalWidth + 'px', 'height': carouselInfo.originalHeight + 'px', 'background-image': 'url(' + carouselItem.img + ')'}">
         </div>
       </li>
     </ul>
-    <div class="arrow arrow-right" [ngClass]="{'clickable': allowMoveLeft}" (click)="moveLeft()">
+    <div class="arrow arrow-right" (click)="moveLeft()">
       <span class="glyphicon glyphicon-circle-arrow-right"></span>
     </div>
   </div>

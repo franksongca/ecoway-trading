@@ -5,14 +5,7 @@ import { Observable } from 'rxjs/Rx';
 @Component({
   selector: 'yu-carousel',
   templateUrl: './carousel.component.html',
-  styleUrls: ['./carousel.component.css'],
-  animations: [
-    trigger('move', [
-      transition('* => *', [
-        animate(1000, style({ left: '{{itemLeft}}' })),
-      ])
-    ])
-  ]
+  styleUrls: ['./carousel.component.css']
 })
 export class CarouselComponent implements OnInit, OnChanges {
   @Input() carouselItems: any;
@@ -23,56 +16,21 @@ export class CarouselComponent implements OnInit, OnChanges {
     this.adjustCarouselInfo();
   }
 //transform: translate(50px, 100px)
-  maxCarouselPieces;
-  carouselIndex = 0;  // at the beginning, set the first one at the left
   allowMoveLeft = true;
   allowMoveRight = false;
-
-  moveStyleData = '';
-  itemLeft = '0px';
-  itemLeftDelay = '0px';
   animateTime = 1000;
   timer;
 
-  public currentMoveDir = 'left';
-  // private moveStyleDataValues = {
-  //   left: { value: 'left;', data: {'moveStyle': { marginLeft: (-1*this.carouselInfo.originalWidth) + 'px'}}},
-  //   right: {value: 'right;', data: {'moveStyle': { marginLeft: this.carouselInfo.originalWidth + 'px'}}}
-  // }
-
-  // get moveStyleData() {
-  //   return this.moveStyleDataValues[this.currentMoveDir];
-  // }
-
   moveLeft() {
-    if (this.carouselIndex < this.maxCarouselPieces - 2) {
-      this.carouselIndex++;
-    }
-
-    this.itemLeft = -(this.carouselIndex * this.carouselInfo.originalWidth) + 'px';
-    this.moveStyleData = 'right';
-    this.delaySetLeft();
-    this.updateArrowButtonStatus();
+    // move the first one to the end
+    let one = this.carouselItems.shift();
+    this.carouselItems.push(one)
   }
 
   moveRight() {
-    if (this.carouselIndex > 0) {
-      this.carouselIndex--;
-    }
-
-    this.itemLeft = -(this.carouselIndex * this.carouselInfo.originalWidth) + 'px';
-    this.moveStyleData = 'left';
-    this.delaySetLeft();
-    this.updateArrowButtonStatus();
-  }
-
-
-
-  delaySetLeft() {
-    window.setTimeout(() => {
-      this.itemLeftDelay = this.itemLeft;
-      this.moveStyleData = '';
-    }, 1000);
+    // move the last to the top
+    let one = this.carouselItems.pop();
+    this.carouselItems.unshift(one);
   }
 
   constructor() {
@@ -83,22 +41,7 @@ export class CarouselComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.maxCarouselPieces = this.carouselItems.length;
-
     this.adjustCarouselInfo();
-  }
-
-  updateArrowButtonStatus() {
-    if (this.carouselIndex === 0) {
-      this.allowMoveLeft = true;
-      this.allowMoveRight = false;
-    } else if (this.carouselIndex === this.maxCarouselPieces - 2) {
-      this.allowMoveLeft = false;
-      this.allowMoveRight = true;
-    } else {
-      this.allowMoveLeft = true;
-      this.allowMoveRight = true;
-    }
   }
 
   adjustCarouselInfo() {
