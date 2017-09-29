@@ -19,13 +19,18 @@ export class HomepageComponent implements OnInit {
           originalWidth: response.carousel.originalWidth,
           originalHeight: response.carousel.originalHeight,
           speed: response.carousel.interval,
-          ratioY: response.carousel.originalHeight/response.carousel.originalWidth
+          ratioY: response.carousel.originalHeight/response.carousel.originalWidth,
+          autoPlay: {enable: true, delay: 3000, duration: 3000}
         };
 
         this.carouselItems = response.carousel.items;
       },
       () => console.log('load config error occurs!')
     );
+  }
+
+  onCarouselSelected(carouselIndex) {
+    //alert('carouselIndex' + carouselIndex);
   }
 
   ngOnInit() {

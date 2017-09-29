@@ -6,16 +6,11 @@
 }
 
 .carousel-item-container {
-  position: absolute;
-  top: 0;
   display: block;
   background-repeat: no-repeat;
   background-clip: content-box;
   background-size: 100% auto;
   overflow: hidden;
-  -webkit-animation: linear infinite alternate;
-  -webkit-animation-name: run;
-  -webkit-animation-duration: 5s;
 }
 
 .arrow {
@@ -23,10 +18,15 @@
   z-index: 800;
   margin-top: -25px;
   font-size: 50px;
-  color: rgba(240, 250, 250, 0.8);
+  color: rgba(240, 250, 250, 0.2);
   position: absolute;
   top: 50%;
+  cursor: not-allowed;
+}
+
+.arrow.clickable {
   cursor: pointer;
+  color: rgba(240, 250, 250, 0.8);
 }
 
 .arrow-left {
@@ -46,6 +46,7 @@ ul {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  transition-timing-function: cubic-bezier(.74, .33, .83, .67)  /*ease-in-out;*/
 }
 
 li {
@@ -66,10 +67,30 @@ li {
   }
 }
 
-@-webkit-keyframes move {
-  0% { left: 0;}
-  25%{ left : -25%;}
-  50%{ left: -50%;}
-  75%{ left: -75%;}
-  100%{ left: -100%;}
+.open {
+  -webkit-transform-origin: 100% 50%;
+  -webkit-animation: openAnimation 1s both ease-in;
+}
+
+.close {
+  -webkit-transform-origin: 100% 50%;
+  -webkit-animation: closeAnimation 1s both ease-in;
+}
+
+@-webkit-keyframes openAnimation {
+  0% {
+    -webkit-transform: translateX(0%);
+  }
+  100% {
+    -webkit-transform: translateX(-100%);
+  }
+}
+
+@-webkit-keyframes closeAnimation {
+  0% {
+    -webkit-transorm: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(100%);
+  }
 }
