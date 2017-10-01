@@ -18,9 +18,9 @@ export class HomepageComponent implements OnInit {
           contentWidth: response.pageInfo.contentWidth,
           originalWidth: response.carousel.originalWidth,
           originalHeight: response.carousel.originalHeight,
-          speed: response.carousel.interval,
           ratioY: response.carousel.originalHeight/response.carousel.originalWidth,
-          autoPlay: {enable: true, delay: 3000, duration: 3000}
+          animationDuration: response.carousel.animationDuration,
+          autoPlay: response.carousel.autoPlay
         };
 
         this.carouselItems = response.carousel.items;
@@ -30,7 +30,7 @@ export class HomepageComponent implements OnInit {
   }
 
   onCarouselSelected(carouselIndex) {
-    //alert('carouselIndex' + carouselIndex);
+    console.log('carouselIndex', carouselIndex);
   }
 
   ngOnInit() {

@@ -16,26 +16,61 @@ export class CarouselComponent implements OnInit, OnChanges {
     this.adjustCarouselInfo();
   }
 
-  autoPlayHandler;
+  static  MOVE_LEFT = 0;
+  static  MOVE_RIGHT = 1;
 
-  animationDuration = 2;
+  autoPlayHandler;
   carouselIndex = 0;
   allowMoveLeft = true;
   allowMoveRight = false;
+  inAutoPlaying = false;
+  idleCount;
+  idleCountIndex = 0;
+  moveingDir = CarouselComponent.MOVE_LEFT; //'to-left';
 
-  moveLeft() {
-    if (this.carouselIndex > -(this.carouselItems.length - 2)) {
-      this.carouselIndex--;
-      this.updateArrowButtonStatus();
+  onMouseMove(e) {
+    if (!this.inAutoPlaying) {
+      console.log('reset idel')
+      this.idleCountIndex = 0;
     }
   }
 
-  moveRight() {
+  moveLeft(drivenBy) {
+    if (this.carouselIndex > -(this.carouselItems.length - 2)) {
+      this.carouselIndex--;
+      if (!this.inAutoPlaying) {
+        this.moveingDir = CarouselComponent.MOVE_LEFT;
+      } else {
+        if (drivenBy === 'byMouse') {
+          this.stopAutoPlay();
+        }
+      }
+      this.updateArrowButtonStatus();
+    } else {
+      if (drivenBy === 'auto') {
+        this.moveingDir = CarouselComponent.MOVE_RIGHT;
+        this.moveRight('auto');
+      }
+    }
+  }
+
+  moveRight(drivenBy) {
     if (this.carouselIndex < 0) {
       this.carouselIndex++;
+      if (!this.inAutoPlaying) {
+        this.moveingDir = CarouselComponent.MOVE_RIGHT;
+      } else {
+        if (drivenBy === 'byMouse') {
+          this.stopAutoPlay();
+        }
+      }
       this.updateArrowButtonStatus();
+    } else {
+      if (drivenBy === 'auto') {
+        this.moveingDir = CarouselComponent.MOVE_LEFT;
+        this.moveLeft('auto');
+      }
     }
-
   }
 
   constructor() {
@@ -43,16 +78,29 @@ export class CarouselComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    this.idleCount = Math.round(this.carouselInfo.autoPlay.idle / this.carouselInfo.autoPlay.duration);
+
     if (this.carouselInfo.autoPlay.enable) {
       let timer = Observable.timer(this.carouselInfo.autoPlay.delay, this.carouselInfo.autoPlay.duration);
       this.autoPlayHandler = timer.subscribe(() => {
-        if (this.allowMoveLeft) {
-          this.moveLeft();
+        if (this.inAutoPlaying) {
+          if (this.moveingDir === CarouselComponent.MOVE_LEFT) {
+            this.moveLeft('auto');
+          } else {
+            this.moveRight('auto');
+          }
         } else {
-          this.moveRight();
+          if (!this.inAutoPlaying && this.idleCountIndex++ > this.idleCount) {
+            this.inAutoPlaying = true;
+          }
         }
       });
     }
+  }
+
+  stopAutoPlay() {
+    this.inAutoPlaying = false;
+    this.idleCountIndex = 0;
   }
 
   ngOnChanges(changes: SimpleChanges) {

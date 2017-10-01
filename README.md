@@ -1,4 +1,4 @@
-# Wbdemo
+# ECOWAY-TRADING
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.3.2.
 
@@ -27,8 +27,15 @@ Before running the tests make sure you are serving the app via `ng serve`.
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-## Dependency
-npm install ngx-bootstrap bootstrap@4.0.0-beta jquery popper.js --save
+------------------------------------------
+# Design Req:
 
-## install carousel
-https://coursetro.com/posts/code/79/A-Quick-and-Easy-Angular-Carousel-in-a-Few-Minutes-(Angular-2-and-4+)
+## Carousel--
+- put carousel images @ assets/img/carousel/
+- define carousel in assets/config.json
+- carousel images' size: 450x338
+
+## All other:
+- pages layout, menu, color, size, images, background, font, ... needs design
+
+

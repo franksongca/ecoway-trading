@@ -7,6 +7,7 @@
 
 .carousel-item-container {
   display: block;
+  position: relative;
   background-repeat: no-repeat;
   background-clip: content-box;
   background-size: 100% auto;
@@ -53,11 +54,37 @@ li {
   float: left;
 }
 
+.carousel-item-desc {
+  position: absolute;
+  top: 45px;
+  left: 10px;
+  color: red;
+  font-size: 2em;
+}
+
+.carousel-item-name {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  margin: 5px;
+  color: white;
+  font-size: 2.5em;
+}
+
 @media screen and (max-width: 900px) {
   .arrow {
     font-size: 40px;
     margin-top: -20px;
   }
+
+  .carousel-item-desc {
+    font-size: 1.7em;
+  }
+
+  .carousel-item-name {
+    font-size: 2em;
+  }
+
 }
 
 @media screen and (max-width: 800px) {
@@ -65,32 +92,13 @@ li {
     font-size: 30px;
     margin-top: -15px;
   }
-}
 
-.open {
-  -webkit-transform-origin: 100% 50%;
-  -webkit-animation: openAnimation 1s both ease-in;
-}
-
-.close {
-  -webkit-transform-origin: 100% 50%;
-  -webkit-animation: closeAnimation 1s both ease-in;
-}
-
-@-webkit-keyframes openAnimation {
-  0% {
-    -webkit-transform: translateX(0%);
+  .carousel-item-desc {
+    font-size: 1em;
   }
-  100% {
-    -webkit-transform: translateX(-100%);
+
+  .carousel-item-name {
+    font-size: 1.5em;
   }
 }
 
-@-webkit-keyframes closeAnimation {
-  0% {
-    -webkit-transorm: translateX(0);
-  }
-  100% {
-    -webkit-transform: translateX(100%);
-  }
-}
