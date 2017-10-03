@@ -13,9 +13,9 @@
   ],
   "carousel": {
     "contentWidth": 900,
-    "originalWidth": 450,
-    "originalHeight": 338,
-
+    "originalWidth": 300,
+    "originalHeight": 320,
+    "itemsInOneScreen": 3,
     "animationDuration": 2,
     "autoPlay": {
       "enable": true,
