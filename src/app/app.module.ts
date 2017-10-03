@@ -3,6 +3,7 @@ import { NgModule  } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { AlertModule } from 'ngx-bootstrap/alert';
+import { EasyCarouselModule } from 'easy-carousel/build/easy-carousel.module';
 import { AppComponent } from './app.component';
 import { ComingSoonComponent } from './components/coming.soon/coming.soon.component';
 import { ConfigService } from './services/config.service';
@@ -18,7 +19,6 @@ import { ProductsComponent } from './components/pages/products/products.componen
 import { ServicesComponent } from './components/pages/services/services.component';
 import { ContactComponent } from './components/pages/contact/contact.component';
 import { FooterComponent } from './components/pages/footer/footer.component';
-import { CarouselComponent } from './components/carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -34,14 +34,14 @@ import { CarouselComponent } from './components/carousel/carousel.component';
     ProductsComponent,
     ServicesComponent,
     ContactComponent,
-    FooterComponent,
-    CarouselComponent
+    FooterComponent
   ],
   imports: [
     AlertModule.forRoot(),
     HttpModule,
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    EasyCarouselModule.forRoot()
   ],
   providers: [
     ConfigService,

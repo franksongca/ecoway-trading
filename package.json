@@ -23,6 +23,7 @@
     "@angular/router": "^4.2.4",
     "bootstrap": "^3.2.0",
     "core-js": "^2.4.1",
+    "easy-carousel": "^1.0.2",
     "ngx-bootstrap": "^1.9.3",
     "popper.js": "^1.12.5",
     "rxjs": "^5.4.2",
