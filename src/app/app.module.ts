@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { EasyCarouselModule } from 'easy-carousel/build/easy-carousel.module';
-import { AppComponent } from './app.component';
+
 import { ComingSoonComponent } from './components/coming.soon/coming.soon.component';
 import { ConfigService } from './services/config.service';
 import { ActionService } from './services/action.service';
@@ -19,6 +19,7 @@ import { ProductsComponent } from './components/pages/products/products.componen
 import { ServicesComponent } from './components/pages/services/services.component';
 import { ContactComponent } from './components/pages/contact/contact.component';
 import { FooterComponent } from './components/pages/footer/footer.component';
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
