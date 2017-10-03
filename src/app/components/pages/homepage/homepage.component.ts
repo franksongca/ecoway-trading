@@ -7,23 +7,15 @@ import { ConfigService } from '../../../services/config.service';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
-  carouselItems;
   carouselInfo;
 
 
   constructor(){
     ConfigService.getConfig().subscribe(
       response => {
-        this.carouselInfo = {
-          contentWidth: response.pageInfo.contentWidth,
-          originalWidth: response.carousel.originalWidth,
-          originalHeight: response.carousel.originalHeight,
-          ratioY: response.carousel.originalHeight/response.carousel.originalWidth,
-          animationDuration: response.carousel.animationDuration,
-          autoPlay: response.carousel.autoPlay
-        };
-
-        this.carouselItems = response.carousel.items;
+        setTimeout(() => {
+          this.carouselInfo = response.carousel;
+        });
       },
       () => console.log('load config error occurs!')
     );
