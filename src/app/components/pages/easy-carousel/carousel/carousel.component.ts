@@ -12,7 +12,7 @@ export class CarouselComponent implements OnInit, OnChanges {
 
   @Input() carouselInfo: any;
 
-  @Output() onNotifyCarouselSelected: EventEmitter<number> = new EventEmitter<any>();
+  @Output() onNotifyCarouselSelected: EventEmitter<Object> = new EventEmitter<any>();
 
   autoPlayHandler;
   carouselIndex = 0;
@@ -21,6 +21,9 @@ export class CarouselComponent implements OnInit, OnChanges {
   inAutoPlaying = false;
   idleCount;
   idleCountIndex = 0;
+
+  pointer = {x: -1, y: -1};
+
   moveingDir = CarouselComponent.MOVE_LEFT;
 
   @HostListener('window:resize', ['$event'])
@@ -171,9 +174,22 @@ export class CarouselComponent implements OnInit, OnChanges {
     });
   }
 
-  onCarouselItemSelected(n) {
+  onCarouselItemSelected(id) {
+    console.log('onCarouselItemSelected ' + id);
     this.stopAutoPlay();
-    this.onNotifyCarouselSelected.emit(n);
+    this.onNotifyCarouselSelected.emit(id);
   }
 
+  down(e) {
+    console.log('down ');
+    e.stopPropagation();
+    e.preventDefault();
+    //alert('swapped!');
+  }
+
+  up(e) {
+    console.log('up ');
+    e.stopPropagation();
+    //alert('swapped!');
+  }
 }

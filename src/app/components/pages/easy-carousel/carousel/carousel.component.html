@@ -3,15 +3,15 @@
     <div class="arrow arrow-left" [ngClass]="{'clickable': allowMoveRight}" (click)="moveRight('byMouse')">
       <span class="glyphicon glyphicon-circle-arrow-left"></span>
     </div>
-    <ul (mousemove)="onMouseMove($event)" [ngStyle]="{'transition-timing-function': carouselInfo?.trnsactionEffect, 'transition': 'left ' + carouselInfo?.animationDuration + 's', '-webkit-transition': 'left ' + carouselInfo?.animationDuration + 's', 'left': carouselIndex * carouselInfo?.originalWidth + 'px', 'width': carouselInfo?.originalWidth * carouselInfo?.items.length + 'px', 'height': carouselInfo?.originalHeight + 'px'}">
+    <ul (mousemove)="onMouseMove($event)" (down)="down($event)" (up)="up($event)" [ngStyle]="{'transition-timing-function': carouselInfo?.trnsactionEffect, 'transition': 'left ' + carouselInfo?.animationDuration + 's', '-webkit-transition': 'left ' + carouselInfo?.animationDuration + 's', 'left': carouselIndex * carouselInfo?.originalWidth + 'px', 'width': carouselInfo?.originalWidth * carouselInfo?.items.length + 'px', 'height': carouselInfo?.originalHeight + 'px'}">
       <li *ngFor="let carouselItem of carouselInfo?.items; let i = index" [ngStyle]="{'width': carouselInfo?.originalWidth + 'px', 'height': carouselInfo?.originalHeight + 'px'}">
-        <div class="item-content" (click)="onCarouselItemSelected(i)">
+        <div class="item-content" (down)="onCarouselItemSelected(carouselItem.id)">
           <div *ngIf="!carouselItem.multiple" class="carousel-item-container" [ngStyle]="{'outline': '1px solid ' + carouselInfo.itemOutlineColor,'width': carouselInfo?.originalWidth + 'px', 'height': carouselInfo?.originalHeight + 'px', 'background-image': 'url(' + carouselItem.img + ')'}">
             <div class="carousel-item-name" [ngStyle]="{'color': carouselInfo?.carouselItemColor.name}">{{carouselItem.name}}</div>
             <div class="carousel-item-desc" [ngStyle]="{'color': carouselInfo?.carouselItemColor.desc}">{{carouselItem.desc}}</div>
           </div>
           <div *ngIf="carouselItem.multiple" [ngStyle]="{'width': carouselInfo?.originalWidth + 'px', 'height': carouselInfo?.originalHeight + 'px'}">
-            <div *ngFor="let carouselChildItem of carouselItem.items; let j = index" class="child-item"
+            <div *ngFor="let carouselChildItem of carouselItem.items; let j = index" class="child-item" (down)="onCarouselItemSelected(carouselChildItem.id)"
                  [ngStyle]="{'outline': '1px solid ' + carouselInfo.itemOutlineColor, 'left': carouselChildItem.position.x + 'px', 'top': carouselChildItem.position.y + 'px', 'width': carouselChildItem.size.width + 'px', 'height': carouselChildItem.size.height + 'px', 'background-image': 'url(' + carouselChildItem.img + ')'}">
               <div class="carousel-child-item-name" [ngStyle]="{'color': carouselInfo?.carouselItemColor.name}">{{carouselChildItem.name}}</div>
               <div class="carousel-child-item-desc" [ngStyle]="{'color': carouselInfo?.carouselItemColor.desc}">{{carouselChildItem.desc}}</div>

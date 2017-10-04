@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import { AlertModule } from 'ngx-bootstrap/alert';
 //import { EasyCarouselModule } from 'easy-carousel/build/easy-carousel.module';
 import { EasyCarouselModule } from './components/pages/easy-carousel/easy-carousel.module';
-
+import { TouchEventModule } from 'ng2-events/lib/touch'
 import { ComingSoonComponent } from './components/coming.soon/coming.soon.component';
 import { ConfigService } from './services/config.service';
 import { ActionService } from './services/action.service';
@@ -43,7 +43,11 @@ import { AppComponent } from './app.component';
     HttpModule,
     BrowserModule,
     BrowserAnimationsModule,
+    TouchEventModule,
     EasyCarouselModule.forRoot()
+  ],
+  exports: [
+    TouchEventModule
   ],
   providers: [
     ConfigService,
