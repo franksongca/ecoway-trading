@@ -13,9 +13,9 @@
   ],
   "carousel": {
     "contentWidth": 900,
-    "originalWidth": 300,
-    "originalHeight": 320,
-    "itemsInOneScreen": 3,
+    "originalWidth": 450,
+    "originalHeight": 338,
+    "itemsInOneScreen": 2,
     "animationDuration": 2,
     "autoPlay": {
       "enable": true,
@@ -26,8 +26,34 @@
     "trnsactionEffect": "ease-in-out",
     "items": [
       {"img": "./assets/img/carousel/1.jpg", "name": "NAME 1", "desc": "desc 1"},
-      {"img": "./assets/img/carousel/2.jpg", "name": "NAME 2", "desc": "desc 2"},
-      {"img": "./assets/img/carousel/4.jpg", "name": "NAME 3", "desc": "desc 3"},
+      {
+        "items": [{
+          "img": "./assets/img/carousel/2.jpg",
+          "name": "NAME 2",
+          "desc": "desc 2",
+          "size": {
+            "width": 0.5,
+            "height": 1
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "img": "./assets/img/carousel/4.jpg",
+          "name": "NAME 3",
+          "desc": "desc 3",
+          "size": {
+            "width": 0.5,
+            "height": 1
+          },
+          "position": {
+            "x": 0.5,
+            "y": 0
+          }
+        }]
+      },
       {"img": "./assets/img/carousel/5.jpg", "name": "NAME 4", "desc": "desc 4"},
       {"img": "./assets/img/carousel/6.jpg", "name": "NAME 5", "desc": "desc 5"},
       {"img": "./assets/img/carousel/7.gif", "name": "NAME 6", "desc": "desc 6"},

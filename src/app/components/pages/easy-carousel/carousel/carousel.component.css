@@ -1,0 +1,149 @@
+.carousel-container {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background: white;
+}
+
+.carousel-item-container {
+  display: block;
+  position: relative;
+  background-repeat: no-repeat;
+  background-clip: content-box;
+  background-size: 100% auto;
+  overflow: hidden;
+}
+
+.child-item {
+  display: block;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-clip: content-box;
+  background-size: 100% auto;
+  overflow: hidden;
+
+}
+
+.item-content {
+  position: relative;
+}
+
+.child-item {
+  background-color: red;
+}
+
+.arrow {
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
+  z-index: 800;
+  margin-top: -25px;
+  font-size: 50px;
+  color: rgba(240, 250, 250, 0.2);
+  position: absolute;
+  top: 50%;
+  cursor: not-allowed;
+}
+
+.arrow.clickable {
+  cursor: pointer;
+  color: rgba(240, 250, 250, 0.8);
+}
+
+.arrow-left {
+  left: 0;
+  margin-left: 15px;
+}
+
+.arrow-right {
+  right: 0;
+  margin-right: 15px;
+}
+
+ul {
+  position: relative;
+  z-index: 799;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  float: left;
+}
+
+.carousel-item-desc {
+  position: absolute;
+  top: 45px;
+  left: 10px;
+  font-size: 2em;
+}
+
+.carousel-item-name {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  margin: 5px;
+  font-size: 2.5em;
+}
+
+.carousel-child-item-name {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  font-size: 2.2em;
+}
+
+.carousel-child-item-desc {
+  position: absolute;
+  top: 35px;
+  left: 10px;
+  font-size: 1.6em;
+}
+
+@media screen and (max-width: 900px) {
+  .arrow {
+    font-size: 40px;
+    margin-top: -20px;
+  }
+
+  .carousel-item-desc {
+    font-size: 1.7em;
+  }
+
+  .carousel-item-name {
+    font-size: 2em;
+  }
+
+  .carousel-child-item-desc {
+    font-size: 1.1em;
+  }
+
+  .carousel-child-item-name {
+    font-size: 1.4em;
+  }
+
+}
+
+@media screen and (max-width: 800px) {
+  .arrow {
+    font-size: 30px;
+    margin-top: -15px;
+  }
+
+  .carousel-item-desc {
+    font-size: 1em;
+  }
+
+  .carousel-item-name {
+    font-size: 1.5em;
+  }
+
+  .carousel-child-item-desc {
+    font-size: 0.9em;
+  }
+
+  .carousel-child-item-name {
+    font-size: 1.2em;
+  }
+}
+

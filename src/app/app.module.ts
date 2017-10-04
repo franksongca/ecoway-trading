@@ -3,7 +3,8 @@ import { NgModule  } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { AlertModule } from 'ngx-bootstrap/alert';
-import { EasyCarouselModule } from 'easy-carousel/build/easy-carousel.module';
+//import { EasyCarouselModule } from 'easy-carousel/build/easy-carousel.module';
+import { EasyCarouselModule } from './components/pages/easy-carousel/easy-carousel.module';
 
 import { ComingSoonComponent } from './components/coming.soon/coming.soon.component';
 import { ConfigService } from './services/config.service';
