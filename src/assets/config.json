@@ -12,11 +12,11 @@
     {"id": 4, "name": "Contact Us"}
   ],
   "carousel": {
-    "contentWidth": 900,
-    "originalWidth": 450,
-    "originalHeight": 338,
+    "maxWidth": 900,
+    "ratioHW": 0.75,
     "itemsInOneScreen": 2,
     "animationDuration": 2,
+    "itemOutlineColor": "white",
     "autoPlay": {
       "enable": true,
       "delay": 3000,

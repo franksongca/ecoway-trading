@@ -14,7 +14,6 @@ export class CarouselComponent implements OnInit, OnChanges {
 
   @Output() onNotifyCarouselSelected: EventEmitter<number> = new EventEmitter<any>();
 
-  ratioY;
   autoPlayHandler;
   carouselIndex = 0;
   allowMoveLeft = true;
@@ -92,9 +91,10 @@ export class CarouselComponent implements OnInit, OnChanges {
       return;
     }
 
-    if (!changes['carouselInfo'].previousValue) {
+    if (!changes['carouselInfo'].previousValue && !this.idleCount) {
       this.idleCount = Math.round(this.carouselInfo.autoPlay.idle / this.carouselInfo.autoPlay.duration);
-      this.ratioY = this.carouselInfo.originalHeight / this.carouselInfo.originalWidth;
+      this.carouselInfo['originalWidth'] = this.carouselInfo.maxWidth / this.carouselInfo.itemsInOneScreen;
+      this.carouselInfo['originalHeight'] = this.carouselInfo['originalWidth'] * this.carouselInfo.ratioHW;
 
       this.carouselInfo.items.forEach((item) => {
         if (item['multiple'] === undefined) {
@@ -102,15 +102,12 @@ export class CarouselComponent implements OnInit, OnChanges {
           if (item.hasOwnProperty('items')) {
             item['multiple'] = true;
             item.items.forEach((child) => {
-              if (!child['ratioY']) {
-                child['size'] = {};
-                child['position'] = {};
-                child.size.width = child.sizeRatio.width * this.carouselInfo.originalWidth;
-                child.size.height = child.sizeRatio.height * this.carouselInfo.originalHeight;
-                child['ratioY'] = child.size.height / child.size.width;
-                child.position.x = child.positionRatio.x * this.carouselInfo.originalWidth;
-                child.position.y = child.positionRatio.y * this.carouselInfo.originalHeight;
-              }
+              child['size'] = {};
+              child['position'] = {};
+              child.size.width = child.sizeRatio.width * this.carouselInfo.originalWidth;
+              child.size.height = child.sizeRatio.height * this.carouselInfo.originalHeight;
+              child.position.x = child.positionRatio.x * this.carouselInfo.originalWidth;
+              child.position.y = child.positionRatio.y * this.carouselInfo.originalHeight;
             });
           }
         }
@@ -155,12 +152,12 @@ export class CarouselComponent implements OnInit, OnChanges {
       return;
     }
 
-    if (window.innerWidth < this.carouselInfo.contentWidth) {
+    if (window.innerWidth < this.carouselInfo.maxWidth) {
       this.carouselInfo.originalWidth = window.innerWidth / this.carouselInfo.itemsInOneScreen;
     } else {
-      this.carouselInfo.originalWidth = this.carouselInfo.contentWidth / this.carouselInfo.itemsInOneScreen;
+      this.carouselInfo.originalWidth = this.carouselInfo.maxWidth / this.carouselInfo.itemsInOneScreen;
     }
-    this.carouselInfo.originalHeight = this.carouselInfo.originalWidth * this.ratioY;
+    this.carouselInfo.originalHeight = this.carouselInfo.originalWidth * this.carouselInfo.ratioHW;
 
     this.carouselInfo.items.forEach((item) => {
       if (item['multiple'] === true) {
