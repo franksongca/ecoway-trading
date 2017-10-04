@@ -97,19 +97,24 @@ export class CarouselComponent implements OnInit, OnChanges {
       this.ratioY = this.carouselInfo.originalHeight / this.carouselInfo.originalWidth;
 
       this.carouselInfo.items.forEach((item) => {
-        item['multiple'] = false;
-        if (item.hasOwnProperty('items')) {
-          item['multiple'] = true;
-          item.items.forEach((child) => {
-            child.size.width = child.size.width * this.carouselInfo.originalWidth;
-            child.size.height = child.size.height * this.carouselInfo.originalHeight;
-            child['ratioY'] = child.size.height / child.size.width;
-            child.position.x = child.position.x * this.carouselInfo.originalWidth;
-            child.position.y = child.position.y * this.carouselInfo.originalHeight;
-          });
+        if (item['multiple'] === undefined) {
+          item['multiple'] = false;
+          if (item.hasOwnProperty('items')) {
+            item['multiple'] = true;
+            item.items.forEach((child) => {
+              if (!child['ratioY']) {
+                child['size'] = {};
+                child['position'] = {};
+                child.size.width = child.sizeRatio.width * this.carouselInfo.originalWidth;
+                child.size.height = child.sizeRatio.height * this.carouselInfo.originalHeight;
+                child['ratioY'] = child.size.height / child.size.width;
+                child.position.x = child.positionRatio.x * this.carouselInfo.originalWidth;
+                child.position.y = child.positionRatio.y * this.carouselInfo.originalHeight;
+              }
+            });
+          }
         }
       });
-
 
       if (this.carouselInfo.autoPlay.enable) {
         const timer = Observable.timer(this.carouselInfo.autoPlay.delay, this.carouselInfo.autoPlay.duration);
@@ -156,6 +161,17 @@ export class CarouselComponent implements OnInit, OnChanges {
       this.carouselInfo.originalWidth = this.carouselInfo.contentWidth / this.carouselInfo.itemsInOneScreen;
     }
     this.carouselInfo.originalHeight = this.carouselInfo.originalWidth * this.ratioY;
+
+    this.carouselInfo.items.forEach((item) => {
+      if (item['multiple'] === true) {
+        item.items.forEach((child) => {
+          child.size.width = child.sizeRatio.width * this.carouselInfo.originalWidth;
+          child.size.height = child.sizeRatio.height * this.carouselInfo.originalHeight;
+          child.position.x = child.positionRatio.x * this.carouselInfo.originalWidth;
+          child.position.y = child.positionRatio.y * this.carouselInfo.originalHeight;
+        });
+      }
+    });
   }
 
   onCarouselItemSelected(n) {

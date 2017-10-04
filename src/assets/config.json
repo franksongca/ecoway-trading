@@ -31,11 +31,11 @@
           "img": "./assets/img/carousel/2.jpg",
           "name": "NAME 2",
           "desc": "desc 2",
-          "size": {
+          "sizeRatio": {
             "width": 0.5,
             "height": 1
           },
-          "position": {
+          "positionRatio": {
             "x": 0,
             "y": 0
           }
@@ -44,11 +44,11 @@
           "img": "./assets/img/carousel/4.jpg",
           "name": "NAME 3",
           "desc": "desc 3",
-          "size": {
+          "sizeRatio": {
             "width": 0.5,
             "height": 1
           },
-          "position": {
+          "positionRatio": {
             "x": 0.5,
             "y": 0
           }
