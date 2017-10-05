@@ -196,14 +196,14 @@ export class CarouselComponent implements OnInit, OnChanges {
   down(e) {
     this.stopAutoPlay();
 
-    console.log('down ');
+    console.log('down ' + JSON.stringify(e));
     e.stopPropagation();
     e.preventDefault();
     this.mouseEventManager.start(e.clientX);
   }
 
   up(e) {
-    console.log('up ');
+    console.log('up ' + JSON.stringify(e));
     e.stopPropagation();
     e.preventDefault();
     this.mouseEventManager.stop(e.clientX);
