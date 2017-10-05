@@ -22,7 +22,7 @@ export class HomepageComponent implements OnInit {
   }
 
   onCarouselSelected(carouselIndex) {
-    console.log('carouselIndex', carouselIndex);
+    console.log('carouselIndex selected in homepage', carouselIndex);
   }
 
   ngOnInit() {

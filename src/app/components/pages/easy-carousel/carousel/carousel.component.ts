@@ -14,6 +14,7 @@ export class CarouselComponent implements OnInit, OnChanges {
 
   @Output() onNotifyCarouselSelected: EventEmitter<Object> = new EventEmitter<any>();
 
+  mouseEventManager;
   autoPlayHandler;
   carouselIndex = 0;
   allowMoveLeft = true;
@@ -22,15 +23,12 @@ export class CarouselComponent implements OnInit, OnChanges {
   idleCount;
   idleCountIndex = 0;
 
-  pointer = {x: -1, y: -1};
-
   moveingDir = CarouselComponent.MOVE_LEFT;
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.adjustCarouselInfo();
   }
-
 
   onMouseMove(e) {
     if (!this.inAutoPlaying) {
@@ -40,6 +38,7 @@ export class CarouselComponent implements OnInit, OnChanges {
   }
 
   moveLeft(drivenBy) {
+    console.log('moveLeft');
     if (this.carouselIndex > -(this.carouselInfo.items.length - this.carouselInfo.itemsInOneScreen)) {
       this.carouselIndex--;
       if (!this.inAutoPlaying) {
@@ -59,6 +58,7 @@ export class CarouselComponent implements OnInit, OnChanges {
   }
 
   moveRight(drivenBy) {
+    console.log('moveRight');
     if (this.carouselIndex < 0) {
       this.carouselIndex++;
       if (!this.inAutoPlaying) {
@@ -79,6 +79,15 @@ export class CarouselComponent implements OnInit, OnChanges {
 
   constructor() {
     this.adjustCarouselInfo();
+
+    this.mouseEventManager = new MouseEventManager();
+    this.mouseEventManager.onNotifyMoveCarousel.subscribe((dir) => {
+      if (dir === 0 && (this.carouselIndex > -(this.carouselInfo.items.length - this.carouselInfo.itemsInOneScreen))) {
+        this.moveLeft('auto');
+      } else if (dir === 1 && (this.carouselIndex < 0)) {
+        this.moveRight('auto');
+      }
+    });
   }
 
   ngOnInit() {
@@ -176,20 +185,95 @@ export class CarouselComponent implements OnInit, OnChanges {
 
   onCarouselItemSelected(id) {
     console.log('onCarouselItemSelected ' + id);
-    this.stopAutoPlay();
-    this.onNotifyCarouselSelected.emit(id);
+    this.mouseEventManager.wait((goForward) => {
+      if (goForward) {
+        this.stopAutoPlay();
+        this.onNotifyCarouselSelected.emit(id);
+      }
+    });
   }
 
   down(e) {
+    this.stopAutoPlay();
+
     console.log('down ');
     e.stopPropagation();
     e.preventDefault();
-    //alert('swapped!');
+    this.mouseEventManager.start(e.clientX);
   }
 
   up(e) {
     console.log('up ');
     e.stopPropagation();
-    //alert('swapped!');
+    e.preventDefault();
+    this.mouseEventManager.stop(e.clientX);
   }
 }
+
+export class MouseEventManager {
+  static MINI_DURATION:number = 300;
+  static MINI_DISTANCE: number = 20;
+  static WAITING_TIME: number = 500;
+  static EXPIRED_TIME:number = 2000;
+  static instance;
+
+  @Output() onNotifyMoveCarousel: EventEmitter<Object> = new EventEmitter<number>();
+
+  constructor() {
+    if (MouseEventManager.instance) {
+      return MouseEventManager.instance;
+    }
+
+    MouseEventManager.instance = this;
+  }
+
+  allowCheckTimer;
+  expiredCheckTimer;
+  positionX = -1;
+  startTime = 0;
+  allowClick = false;
+
+  wait(callback) {
+    if (this.allowCheckTimer) {
+      this.allowCheckTimer.unsubscribe();
+    }
+
+    this.allowCheckTimer = Observable.timer(MouseEventManager.WAITING_TIME)
+      .subscribe(() => {
+        callback(MouseEventManager.instance.allowClick);
+      });
+  }
+
+  start(positionX) {
+    console.log('start: '+positionX);
+    this.expiredCheckTimer = Observable.timer(MouseEventManager.EXPIRED_TIME)
+      .subscribe(() => {
+        MouseEventManager.instance.allowClick = false;
+        MouseEventManager.instance.positionX = -1;
+      });
+
+    this.allowClick = false;
+    this.positionX = positionX;
+    this.startTime = Date.now();
+  }
+
+  stop(positionX) {
+    if (this.positionX === -1) {
+      return;
+    }
+
+
+    this.expiredCheckTimer.unsubscribe();
+
+    if (Math.abs(positionX - this.positionX) > MouseEventManager.MINI_DISTANCE) {
+
+      console.log('start x ' + this.positionX + ', ' + positionX + ', ' + (positionX > this.positionX ? 1 : 0));
+
+      this.onNotifyMoveCarousel.emit(positionX > this.positionX ? 1 : 0); // 1=right, 0=left
+      this.positionX = -1;
+    } else {
+      this.allowClick = true;
+    }
+  }
+}
+
