@@ -7,8 +7,9 @@ import { Observable } from 'rxjs/Rx';
   styleUrls: ['./carousel.component.css']
 })
 export class CarouselComponent implements OnInit, OnChanges {
-  static  MOVE_LEFT = 0;
-  static  MOVE_RIGHT = 1;
+  static MIN_IDEL_TIME = 5000;
+  static MOVE_LEFT = 0;
+  static MOVE_RIGHT = 1;
 
   @Input() carouselInfo: any;
 
@@ -99,12 +100,12 @@ export class CarouselComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['carouselInfo'].firstChange) {
-      return;
-    }
 
-    if (!changes['carouselInfo'].previousValue && !this.idleCount) {
-      this.idleCount = Math.round(this.carouselInfo.autoPlay.idle / this.carouselInfo.autoPlay.duration);
+    if (!changes['carouselInfo'].previousValue && changes['carouselInfo'].currentValue && !this.idleCount) {
+      this.idleCount = Math.round(CarouselComponent.MIN_IDEL_TIME / this.carouselInfo.autoPlay.duration);
+      if (this.idleCount === 0) {
+        this.idleCount = 1;
+      }
       this.carouselInfo['originalWidth'] = this.carouselInfo.maxWidth / this.carouselInfo.itemsInOneScreen;
       this.carouselInfo['originalHeight'] = this.carouselInfo['originalWidth'] * this.carouselInfo.ratioHW;
 

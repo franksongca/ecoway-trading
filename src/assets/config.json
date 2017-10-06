@@ -20,8 +20,7 @@
     "autoPlay": {
       "enable": true,
       "delay": 3000,
-      "duration": 2500,
-      "idle": 5000
+      "duration": 2500
     },
     "trnsactionEffect": "ease-in-out",
     "items": [
