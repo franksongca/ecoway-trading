@@ -184,7 +184,10 @@ export class CarouselComponent implements OnInit, OnChanges {
   }
 
   onCarouselItemSelected(id) {
-    console.log('onCarouselItemSelected ' + id);
+    if (id === undefined) {
+      return;
+    }
+
     this.mouseEventManager.wait((goForward) => {
       if (goForward) {
         this.stopAutoPlay();
@@ -194,20 +197,25 @@ export class CarouselComponent implements OnInit, OnChanges {
   }
 
   down(e) {
-    this.stopAutoPlay();
+    if (e.clientX === undefined) {
+      return;
+    }
 
-    console.log('down ' + JSON.stringify(e));
+    this.stopAutoPlay();
     e.stopPropagation();
     e.preventDefault();
     this.mouseEventManager.start(e.clientX);
   }
 
   up(e) {
-    console.log('up ' + JSON.stringify(e));
+    if (e.clientX === undefined) {
+      return;
+    }
     e.stopPropagation();
     e.preventDefault();
     this.mouseEventManager.stop(e.clientX);
   }
+
 }
 
 export class MouseEventManager {
