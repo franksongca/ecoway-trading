@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input, HostListener, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, HostListener, SimpleChanges, OnChanges, AfterViewInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 @Component({
@@ -6,10 +6,10 @@ import { Observable } from 'rxjs/Rx';
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.css']
 })
-export class CarouselComponent implements OnInit, OnChanges {
+export class CarouselComponent implements OnInit, AfterViewInit, OnChanges {
   static MIN_IDEL_TIME = 5000;
-  static MOVE_LEFT = 0;
-  static MOVE_RIGHT = 1;
+  static  MOVE_LEFT = 0;
+  static  MOVE_RIGHT = 1;
 
   @Input() carouselInfo: any;
 
@@ -23,13 +23,13 @@ export class CarouselComponent implements OnInit, OnChanges {
   inAutoPlaying = false;
   idleCount;
   idleCountIndex = 0;
-
   moveingDir = CarouselComponent.MOVE_LEFT;
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.adjustCarouselInfo();
   }
+
 
   onMouseMove(e) {
     if (!this.inAutoPlaying) {
@@ -79,8 +79,6 @@ export class CarouselComponent implements OnInit, OnChanges {
   }
 
   constructor() {
-    this.adjustCarouselInfo();
-
     this.mouseEventManager = new MouseEventManager();
     this.mouseEventManager.onNotifyMoveCarousel.subscribe((dir) => {
       if (dir === 0 && (this.carouselIndex > -(this.carouselInfo.items.length - this.carouselInfo.itemsInOneScreen))) {
@@ -94,13 +92,18 @@ export class CarouselComponent implements OnInit, OnChanges {
   ngOnInit() {
   }
 
+  ngAfterViewInit() {
+    Observable.timer(100).subscribe(() => {
+      this.adjustCarouselInfo();
+    });
+  }
+
   stopAutoPlay() {
     this.inAutoPlaying = false;
     this.idleCountIndex = 0;
   }
 
   ngOnChanges(changes: SimpleChanges) {
-
     if (!changes['carouselInfo'].previousValue && changes['carouselInfo'].currentValue && !this.idleCount) {
       this.idleCount = Math.round(CarouselComponent.MIN_IDEL_TIME / this.carouselInfo.autoPlay.duration);
       if (this.idleCount === 0) {
@@ -142,9 +145,8 @@ export class CarouselComponent implements OnInit, OnChanges {
           }
         });
       }
+      this.adjustCarouselInfo();
     }
-
-    this.adjustCarouselInfo();
   }
 
   updateArrowButtonStatus() {
@@ -170,8 +172,27 @@ export class CarouselComponent implements OnInit, OnChanges {
     } else {
       this.carouselInfo.originalWidth = this.carouselInfo.maxWidth / this.carouselInfo.itemsInOneScreen;
     }
-    this.carouselInfo.originalHeight = this.carouselInfo.originalWidth * this.carouselInfo.ratioHW;
 
+    this.carouselInfo.carouselItemInfo['nameFontSize'] = this.carouselInfo['originalHeight']/7.5;
+    if (this.carouselInfo.carouselItemInfo['nameFontSize'] > this.carouselInfo.carouselItemInfo['maxFontSize']) {
+      this.carouselInfo.carouselItemInfo['nameFontSize'] = this.carouselInfo.carouselItemInfo['maxFontSize']
+    }
+    if (this.carouselInfo.carouselItemInfo['nameFontSize'] < this.carouselInfo.carouselItemInfo['minFontSize']) {
+      this.carouselInfo.carouselItemInfo['nameFontSize'] = this.carouselInfo.carouselItemInfo['minFontSize']
+    }
+    this.carouselInfo.carouselItemInfo['descFontSize'] = this.carouselInfo.carouselItemInfo['NameFontSize'] * 0.8;
+
+    this.carouselInfo.carouselChildItemInfo['nameFontSize'] = this.carouselInfo['originalHeight']/7.5 * 0.7;
+    if (this.carouselInfo.carouselChildItemInfo['nameFontSize'] > this.carouselInfo.carouselChildItemInfo['maxFontSize']) {
+      this.carouselInfo.carouselChildItemInfo['nameFontSize'] = this.carouselInfo.carouselChildItemInfo['maxFontSize']
+    }
+    if (this.carouselInfo.carouselChildItemInfo['nameFontSize'] < this.carouselInfo.carouselChildItemInfo['minFontSize']) {
+      this.carouselInfo.carouselChildItemInfo['nameFontSize'] = this.carouselInfo.carouselChildItemInfo['minFontSize']
+    }
+    this.carouselInfo.carouselChildItemInfo['descFontSize'] = this.carouselInfo.carouselItemInfo['NameFontSize'] * 0.8;
+
+
+    this.carouselInfo.originalHeight = this.carouselInfo.originalWidth * this.carouselInfo.ratioHW;
     this.carouselInfo.items.forEach((item) => {
       if (item['multiple'] === true) {
         item.items.forEach((child) => {
@@ -188,7 +209,6 @@ export class CarouselComponent implements OnInit, OnChanges {
     if (id === undefined) {
       return;
     }
-
     this.mouseEventManager.wait((goForward) => {
       if (goForward) {
         this.stopAutoPlay();
@@ -201,13 +221,11 @@ export class CarouselComponent implements OnInit, OnChanges {
     if (e.clientX === undefined) {
       return;
     }
-
     this.stopAutoPlay();
     e.stopPropagation();
     e.preventDefault();
     this.mouseEventManager.start(e.clientX);
   }
-
   up(e) {
     if (e.clientX === undefined) {
       return;
@@ -216,43 +234,34 @@ export class CarouselComponent implements OnInit, OnChanges {
     e.preventDefault();
     this.mouseEventManager.stop(e.clientX);
   }
-
 }
-
 export class MouseEventManager {
   static MINI_DURATION:number = 300;
   static MINI_DISTANCE: number = 20;
   static WAITING_TIME: number = 500;
   static EXPIRED_TIME:number = 2000;
   static instance;
-
   @Output() onNotifyMoveCarousel: EventEmitter<Object> = new EventEmitter<number>();
-
   constructor() {
     if (MouseEventManager.instance) {
       return MouseEventManager.instance;
     }
-
     MouseEventManager.instance = this;
   }
-
   allowCheckTimer;
   expiredCheckTimer;
   positionX = -1;
   startTime = 0;
   allowClick = false;
-
   wait(callback) {
     if (this.allowCheckTimer) {
       this.allowCheckTimer.unsubscribe();
     }
-
     this.allowCheckTimer = Observable.timer(MouseEventManager.WAITING_TIME)
       .subscribe(() => {
         callback(MouseEventManager.instance.allowClick);
       });
   }
-
   start(positionX) {
     console.log('start: '+positionX);
     this.expiredCheckTimer = Observable.timer(MouseEventManager.EXPIRED_TIME)
@@ -260,24 +269,17 @@ export class MouseEventManager {
         MouseEventManager.instance.allowClick = false;
         MouseEventManager.instance.positionX = -1;
       });
-
     this.allowClick = false;
     this.positionX = positionX;
     this.startTime = Date.now();
   }
-
   stop(positionX) {
     if (this.positionX === -1) {
       return;
     }
-
-
     this.expiredCheckTimer.unsubscribe();
-
     if (Math.abs(positionX - this.positionX) > MouseEventManager.MINI_DISTANCE) {
-
       console.log('start x ' + this.positionX + ', ' + positionX + ', ' + (positionX > this.positionX ? 1 : 0));
-
       this.onNotifyMoveCarousel.emit(positionX > this.positionX ? 1 : 0); // 1=right, 0=left
       this.positionX = -1;
     } else {
@@ -285,4 +287,3 @@ export class MouseEventManager {
     }
   }
 }
-

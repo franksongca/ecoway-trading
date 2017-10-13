@@ -1,10 +1,12 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TouchEventModule } from 'ng2-events/lib/touch'
 import { CarouselComponent } from './carousel/carousel.component';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    TouchEventModule
   ],
   declarations: [
     CarouselComponent

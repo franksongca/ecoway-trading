@@ -23,17 +23,13 @@
   background-clip: content-box;
   background-size: 100% auto;
   overflow: hidden;
-
 }
-
 .item-content {
   position: relative;
 }
-
 .child-item {
   background-color: red;
 }
-
 .arrow {
   text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
   z-index: 800;
@@ -78,33 +74,10 @@ li {
   float: left;
 }
 
-.carousel-item-desc {
-  position: absolute;
-  top: 45px;
-  left: 10px;
-  font-size: 2em;
-}
-
-.carousel-item-name {
-  position: absolute;
-  top: 5px;
-  left: 10px;
-  margin: 5px;
-  font-size: 2.5em;
-}
-
-.carousel-child-item-name {
-  position: absolute;
-  top: 5px;
-  left: 10px;
-  font-size: 2.2em;
-}
-
-.carousel-child-item-desc {
-  position: absolute;
-  top: 35px;
-  left: 10px;
-  font-size: 1.6em;
+.message-content {
+  text-align: left;
+  padding: 5px;
+  font-family: "Times New Roman", Georgia, Serif;
 }
 
 @media screen and (max-width: 900px) {
@@ -113,23 +86,6 @@ li {
     height: 50px;
     margin-top: -25px;
   }
-
-  .carousel-item-desc {
-    font-size: 1.7em;
-  }
-
-  .carousel-item-name {
-    font-size: 2em;
-  }
-
-  .carousel-child-item-desc {
-    font-size: 1.1em;
-  }
-
-  .carousel-child-item-name {
-    font-size: 1.4em;
-  }
-
 }
 
 @media screen and (max-width: 700px) {
@@ -137,22 +93,6 @@ li {
     width: 30px;
     height: 30px;
     margin-top: -15px;
-  }
-
-  .carousel-item-desc {
-    font-size: 1em;
-  }
-
-  .carousel-item-name {
-    font-size: 1.5em;
-  }
-
-  .carousel-child-item-desc {
-    font-size: 0.9em;
-  }
-
-  .carousel-child-item-name {
-    font-size: 1.2em;
   }
 }
 

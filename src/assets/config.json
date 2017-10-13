@@ -130,9 +130,21 @@
       {"id": 17,"img": "./assets/img/carousel/14.jpg", "name": "NAME 17", "desc": "desc 17"},
       {"id": 18,"img": "./assets/img/carousel/15.jpg", "name": "NAME 18", "desc": "desc 18"}
     ],
-    "carouselItemColor": {
+    "carouselItemInfo": {
       "name": "white",
-      "desc": "gray"
+      "desc": "lightgray",
+      "minFontSize": 15,
+      "maxFontSize": 40,
+      "nameFontFamily": "",
+      "descFontFamily": ""
+    },
+    "carouselChildItemInfo": {
+      "name": "white",
+      "desc": "lightgray",
+      "minFontSize": 10,
+      "maxFontSize": 30,
+      "nameFontFamily": "",
+      "descFontFamily": ""
     }
   }
 }
