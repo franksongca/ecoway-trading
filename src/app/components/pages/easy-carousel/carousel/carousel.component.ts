@@ -236,17 +236,11 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnChanges {
   }
 }
 export class MouseEventManager {
-  static MINI_DURATION:number = 300;
   static MINI_DISTANCE: number = 20;
   static WAITING_TIME: number = 500;
   static EXPIRED_TIME:number = 2000;
-  static instance;
   @Output() onNotifyMoveCarousel: EventEmitter<Object> = new EventEmitter<number>();
   constructor() {
-    if (MouseEventManager.instance) {
-      return MouseEventManager.instance;
-    }
-    MouseEventManager.instance = this;
   }
   allowCheckTimer;
   expiredCheckTimer;
@@ -259,15 +253,15 @@ export class MouseEventManager {
     }
     this.allowCheckTimer = Observable.timer(MouseEventManager.WAITING_TIME)
       .subscribe(() => {
-        callback(MouseEventManager.instance.allowClick);
+        callback(this.allowClick);
       });
   }
   start(positionX) {
     console.log('start: '+positionX);
     this.expiredCheckTimer = Observable.timer(MouseEventManager.EXPIRED_TIME)
       .subscribe(() => {
-        MouseEventManager.instance.allowClick = false;
-        MouseEventManager.instance.positionX = -1;
+        this.allowClick = false;
+        this.positionX = -1;
       });
     this.allowClick = false;
     this.positionX = positionX;
