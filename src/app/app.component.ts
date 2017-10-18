@@ -14,12 +14,11 @@ export class AppComponent {
     ConfigService.getConfig().subscribe(
       response => {
         this.websiteStatus = response.websiteStatus;
-        //alert(this.websiteStatus);
       },
       () => console.log('load config error occurs!')
     );
-    
-    
-    
+
+
+
   }
 }

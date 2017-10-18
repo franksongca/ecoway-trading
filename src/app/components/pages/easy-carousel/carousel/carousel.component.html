@@ -1,28 +1,39 @@
 <ng-template #carousel>
   <div class="carousel-container" [ngStyle]="{'max-width': carouselInfo?.maxWidth + 'px', 'height': carouselInfo?.originalHeight + 'px'}">
-    <div class="arrow arrow-left" [ngClass]="{'clickable': allowMoveRight}" (click)="moveRight('byMouse')"></div>
-    <ul (mousemove)="onMouseMove($event)" (down)="down($event)" (up)="up($event)" [ngStyle]="{'transition-timing-function': carouselInfo?.trnsactionEffect, 'transition': 'left ' + carouselInfo?.animationDuration + 's', '-webkit-transition': 'left ' + carouselInfo?.animationDuration + 's', 'left': carouselIndex * carouselInfo?.originalWidth + 'px', 'width': carouselInfo?.originalWidth * carouselInfo?.items.length + 'px', 'height': carouselInfo?.originalHeight + 'px'}">
-      <li *ngFor="let carouselItem of carouselInfo?.items; let i = index" [ngStyle]="{'width': carouselInfo?.originalWidth + 'px', 'height': carouselInfo?.originalHeight + 'px'}">
-        <div class="item-content" (down)="onCarouselItemSelected(carouselItem.id)">
-          <div *ngIf="!carouselItem.multiple" class="carousel-item-container" [ngStyle]="{'outline': '1px solid ' + carouselInfo?.itemOutlineColor,'width': carouselInfo?.originalWidth + 'px', 'height': carouselInfo?.originalHeight + 'px', 'background-image': 'url(' + carouselItem.img + ')'}">
-            <div class="message-content">
-              <div [ngStyle]="{'font-family': carouselInfo?.carouselItemInfo.nameFontFamily, 'color': carouselInfo?.carouselItemInfo.name, 'font-size': carouselInfo?.carouselItemInfo.nameFontSize + 'px'}">{{carouselItem.name}}</div>
-              <div [ngStyle]="{'font-family': carouselInfo?.carouselItemInfo.descFontFamily, 'color': carouselInfo?.carouselItemInfo.desc, 'font-size': carouselInfo?.carouselItemInfo.descFontSize + 'px'}">{{carouselItem.desc}}</div>
-            </div>
-          </div>
-          <div *ngIf="carouselItem.multiple" [ngStyle]="{'width': carouselInfo?.originalWidth + 'px', 'height': carouselInfo?.originalHeight + 'px'}">
-            <div *ngFor="let carouselChildItem of carouselItem.items; let j = index" class="child-item" (down)="onCarouselItemSelected(carouselChildItem.id)"
-                 [ngStyle]="{'outline': '1px solid ' + carouselInfo.itemOutlineColor, 'left': carouselChildItem.position.x + 'px', 'top': carouselChildItem.position.y + 'px', 'width': carouselChildItem.size.width + 'px', 'height': carouselChildItem.size.height + 'px', 'background-image': 'url(' + carouselChildItem.img + ')'}">
+    <div class="carousel-elemnt">
+      <ul (mousemove)="onMouseMove($event)" (down)="down($event)" (up)="up($event)" [ngStyle]="{'transition-duration': carouselInfo?.animationDuration + 's', 'transition-timing-function': carouselInfo?.trnsactionEffect, 'transition': 'left ' + carouselInfo?.animationDuration + 's', '-webkit-transition': 'left ' + carouselInfo?.animationDuration + 's', 'left': (carouselIndex * carouselInfo?.originalWidth + carouselInfo?.carouselItemInfo.itemOutlineWidth/2) + 'px', 'width': carouselInfo?.originalWidth * carouselInfo?.items.length + 'px', 'height': carouselInfo?.originalHeight + 'px'}">
+        <li *ngFor="let carouselItem of carouselInfo?.items; let i = index" [ngStyle]="{'width': carouselInfo?.originalWidth + 'px', 'height': carouselInfo?.originalHeight + 'px'}">
+          <div class="item-content" [ngStyle]="{'outline': carouselInfo?.carouselItemInfo.itemOutlineWidth + 'px solid ' + carouselInfo?.itemOutlineColor}">
+            <div  (down)="onCarouselItemSelected(carouselItem)" *ngIf="!carouselItem.multiple" class="carousel-item-container" [ngStyle]="{'width': carouselInfo?.originalWidth + 'px', 'height': carouselInfo?.originalHeight + 'px', 'background-image': 'url(' + carouselItem.img + ')'}">
               <div class="message-content">
-                <div [ngStyle]="{'font-family': carouselInfo?.carouselChildItemInfo.nameFontFamily, 'color': carouselInfo?.carouselChildItemInfo.name, 'font-size': carouselInfo?.carouselChildItemInfo.nameFontSize + 'px'}">{{carouselChildItem.name}}</div>
-                <div [ngStyle]="{'font-family': carouselInfo?.carouselChildItemInfo.descFontFamily, 'color': carouselInfo?.carouselChildItemInfo.desc, 'font-size': carouselInfo?.carouselChildItemInfo.descFonrSize + 'px'}">{{carouselChildItem.desc}}</div>
+                <div [ngStyle]="{'font-family': carouselInfo?.carouselItemInfo.nameFontFamily, 'color': carouselInfo?.carouselItemInfo.nameColor, 'font-size': carouselInfo?.carouselItemInfo.nameFontSize + 'px'}">{{carouselItem.name}}</div>
+                <div [ngStyle]="{'font-family': carouselInfo?.carouselItemInfo.descFontFamily, 'color': carouselInfo?.carouselItemInfo.descColor, 'font-size': carouselInfo?.carouselItemInfo.descFontSize + 'px'}">{{carouselItem.desc}}</div>
+              </div>
+            </div>
+            <div *ngIf="carouselItem.multiple" [ngStyle]="{'width': carouselInfo?.originalWidth + 'px', 'height': carouselInfo?.originalHeight + 'px'}">
+              <div *ngFor="let carouselChildItem of carouselItem.items; let j = index" class="child-item" (down)="onCarouselItemSelected(carouselChildItem)"
+                   [ngStyle]="{'outline': carouselInfo?.carouselChildItemInfo.itemOutlineWidth + 'px solid ' + carouselInfo.itemOutlineColor, 'left': carouselChildItem.position.x + 'px', 'top': carouselChildItem.position.y + 'px', 'width': carouselChildItem.size.width + 'px', 'height': carouselChildItem.size.height + 'px', 'background-image': 'url(' + carouselChildItem.img + ')'}">
+                <div class="message-content">
+                  <div [ngStyle]="{'font-family': carouselInfo?.carouselChildItemInfo.nameFontFamily, 'color': carouselInfo?.carouselChildItemInfo.nameColor, 'font-size': carouselInfo?.carouselChildItemInfo.nameFontSize + 'px'}">{{carouselChildItem.name}}</div>
+                  <div [ngStyle]="{'font-family': carouselInfo?.carouselChildItemInfo.descFontFamily, 'color': carouselInfo?.carouselChildItemInfo.descColor, 'font-size': carouselInfo?.carouselChildItemInfo.descFonrSize + 'px'}">{{carouselChildItem.desc}}</div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </li>
-    </ul>
-    <div class="arrow arrow-right" [ngClass]="{'clickable': allowMoveLeft}" (click)="moveLeft('byMouse')"></div>
+        </li>
+      </ul>
+      <div class="arrow arrow-left" [ngClass]="{'clickable': allowMoveRight}" (click)="moveRight('byMouse')"></div>
+      <div class="arrow arrow-right" [ngClass]="{'clickable': allowMoveLeft}" (click)="moveLeft('byMouse')"></div>
+    </div>
+    <div class="selected-item" *ngIf="!!selectedCarouselItem" [ngStyle]="{'opacity': carouselInfo?.selectedItemInfo.opacity,  'padding': carouselInfo?.selectedItemInfo.padding + 'px', 'background-color': carouselInfo?.selectedItemInfo.backgroundColorRGBA}">
+      <div class="selected-item-img" [ngStyle]="{'outline': carouselInfo?.selectedItemInfo.selectedItemOutlineWidth + 'px solid ' + carouselInfo?.selectedItemInfo.selectedItemOutlineColor, 'width': (carouselInfo?.originalHeight - carouselInfo?.selectedItemInfo.padding * 2)/carouselInfo?.ratioHW + 'px', 'height': (carouselInfo?.originalHeight - carouselInfo?.selectedItemInfo.padding * 2) + 'px', 'background-image': 'url(' + selectedCarouselItem?.selectedImg + ')'}"></div>
+      <div class="selected-item-html" [ngStyle]="{'outline': carouselInfo?.selectedItemInfo.selectedItemOutlineWidth + 'px solid ' + carouselInfo?.selectedItemInfo.selectedItemOutlineColor, 'width': (carouselInfo?.itemsInOneScreen * carouselInfo?.originalWidth - carouselInfo?.selectedItemInfo.padding * 2 - (carouselInfo?.originalHeight - carouselInfo?.selectedItemInfo.padding * 2)/carouselInfo?.ratioHW - carouselInfo?.selectedItemInfo.selectedItemOutlineWidth * 2) + 'px'}">
+        <div class="selected-name" [ngStyle]="{'font-family': carouselInfo?.selectedItemInfo.nameFontFamily, 'color': carouselInfo?.selectedItemInfo.nameColor, 'font-size': carouselInfo?.selectedItemInfo.nameFontSize + 'px'}">{{selectedCarouselItem.name}}</div>
+        <div class="selected-desc" [ngStyle]="{'font-family': carouselInfo?.selectedItemInfo.descFontFamily, 'color': carouselInfo?.selectedItemInfo.descColor, 'font-size': carouselInfo?.selectedItemInfo.descFontSize + 'px'}">{{selectedCarouselItem.desc}}</div>
+        <p class="selected-details" [ngStyle]="{'font-family': carouselInfo?.selectedItemInfo.deatilsFontFamily, 'color': carouselInfo?.selectedItemInfo.detailsColor, 'font-size': carouselInfo?.selectedItemInfo.detailsFontSize + 'px'}">{{selectedCarouselItem.details}}</p>
+      </div>
+      <div class="close-selected" (click)="closeSelected()" [ngStyle]="{'margin': carouselInfo?.selectedItemInfo.padding + 'px'}"></div>
+    </div>
   </div>
 </ng-template>
 
