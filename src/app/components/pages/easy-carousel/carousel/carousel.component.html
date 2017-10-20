@@ -25,14 +25,27 @@
       <div class="arrow arrow-left" [ngClass]="{'clickable': allowMoveRight}" (click)="moveRight('byMouse')"></div>
       <div class="arrow arrow-right" [ngClass]="{'clickable': allowMoveLeft}" (click)="moveLeft('byMouse')"></div>
     </div>
-    <div class="selected-item" *ngIf="!!selectedCarouselItem" [ngStyle]="{'opacity': carouselInfo?.selectedItemInfo.opacity,  'padding': carouselInfo?.selectedItemInfo.padding + 'px', 'background-color': carouselInfo?.selectedItemInfo.backgroundColorRGBA}">
-      <div class="selected-item-img" [ngStyle]="{'outline': carouselInfo?.selectedItemInfo.selectedItemOutlineWidth + 'px solid ' + carouselInfo?.selectedItemInfo.selectedItemOutlineColor, 'width': (carouselInfo?.originalHeight - carouselInfo?.selectedItemInfo.padding * 2)/carouselInfo?.ratioHW + 'px', 'height': (carouselInfo?.originalHeight - carouselInfo?.selectedItemInfo.padding * 2) + 'px', 'background-image': 'url(' + selectedCarouselItem?.selectedImg + ')'}"></div>
-      <div class="selected-item-html" [ngStyle]="{'outline': carouselInfo?.selectedItemInfo.selectedItemOutlineWidth + 'px solid ' + carouselInfo?.selectedItemInfo.selectedItemOutlineColor, 'width': (carouselInfo?.itemsInOneScreen * carouselInfo?.originalWidth - carouselInfo?.selectedItemInfo.padding * 2 - (carouselInfo?.originalHeight - carouselInfo?.selectedItemInfo.padding * 2)/carouselInfo?.ratioHW - carouselInfo?.selectedItemInfo.selectedItemOutlineWidth * 2) + 'px'}">
-        <div class="selected-name" [ngStyle]="{'font-family': carouselInfo?.selectedItemInfo.nameFontFamily, 'color': carouselInfo?.selectedItemInfo.nameColor, 'font-size': carouselInfo?.selectedItemInfo.nameFontSize + 'px'}">{{selectedCarouselItem.name}}</div>
-        <div class="selected-desc" [ngStyle]="{'font-family': carouselInfo?.selectedItemInfo.descFontFamily, 'color': carouselInfo?.selectedItemInfo.descColor, 'font-size': carouselInfo?.selectedItemInfo.descFontSize + 'px'}">{{selectedCarouselItem.desc}}</div>
-        <p class="selected-details" [ngStyle]="{'font-family': carouselInfo?.selectedItemInfo.deatilsFontFamily, 'color': carouselInfo?.selectedItemInfo.detailsColor, 'font-size': carouselInfo?.selectedItemInfo.detailsFontSize + 'px'}">{{selectedCarouselItem.details}}</p>
+    <div class="selected-item" *ngIf="!!selectedCarouselItem" [ngStyle]="{'opacity': carouselInfo?.selectedItemInfo.opacity, 'padding': carouselInfo?.selectedItemInfo.padding + 'px', 'background-color': carouselInfo?.selectedItemInfo.backdropColorRGBA}">
+      <div class="selected-item-inner" [ngStyle]="{
+        'outline': carouselInfo?.selectedItemInfo.selectedItemOutlineWidth + 'px solid ' + carouselInfo?.selectedItemInfo.selectedItemOutlineColor,
+        'background-color': carouselInfo?.selectedItemInfo.backgroundColorRGBA,
+        '-webkit-box-shadow': carouselInfo?.selectedItemInfo.boxShadow,
+        '-moz-box-shadow': carouselInfo?.selectedItemInfo.boxShadow,
+        'box-shadow': carouselInfo?.selectedItemInfo.boxShadow
+        }">
+        <div class="selected-item-img" [ngStyle]="{'width': carouselInfo?.selectedItemInfo.imageWidth + 'px', 'height': carouselInfo?.selectedItemInfo.height + 'px', 'background-image': 'url(' + selectedCarouselItem?.selectedImg + ')'}"></div>
+
+        <div class="selected-item-html" [ngStyle]="{'width': carouselInfo?.selectedItemInfo.htmlWidth + 'px', 'height': carouselInfo?.selectedItemInfo.height + 'px'}">
+          <div class="selected-item-html-inner">
+            <div class="selected-name" [ngStyle]="{'font-family': carouselInfo?.selectedItemInfo.nameFontFamily, 'color': carouselInfo?.selectedItemInfo.nameColor, 'font-size': carouselInfo?.selectedItemInfo.nameFontSize + 'px'}">{{selectedCarouselItem.name}}</div>
+            <div class="selected-desc" [ngStyle]="{'font-family': carouselInfo?.selectedItemInfo.descFontFamily, 'color': carouselInfo?.selectedItemInfo.descColor, 'font-size': carouselInfo?.selectedItemInfo.descFontSize + 'px'}">{{selectedCarouselItem.desc}}</div>
+            <p class="selected-details" [ngStyle]="{'font-family': carouselInfo?.selectedItemInfo.deatilsFontFamily, 'color': carouselInfo?.selectedItemInfo.detailsColor, 'font-size': carouselInfo?.selectedItemInfo.detailsFontSize + 'px'}">{{selectedCarouselItem.details}}</p>
+          </div>
+        </div>
+
+
       </div>
-      <div class="close-selected" (click)="closeSelected()" [ngStyle]="{'margin': carouselInfo?.selectedItemInfo.padding + 'px'}"></div>
+      <div class="close-selected" (click)="closeSelected()" [ngStyle]="{'margin': carouselInfo?.selectedItemInfo.padding + 'px', 'color': carouselInfo?.selectedItemInfo.closeButtonColor, 'text-shadow': carouselInfo?.selectedItemInfo.closeButtonTextShadow}">&times;</div>
     </div>
   </div>
 </ng-template>
