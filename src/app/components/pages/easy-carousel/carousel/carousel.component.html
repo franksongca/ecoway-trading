@@ -1,7 +1,7 @@
 <ng-template #carousel>
   <div class="carousel-container" [ngStyle]="{'max-width': carouselInfo?.maxWidth + 'px', 'height': carouselInfo?.originalHeight + 'px'}">
     <div class="carousel-elemnt">
-      <ul (mousemove)="onMouseMove($event)" (down)="down($event)" (up)="up($event)" [ngStyle]="{'transition-duration': carouselInfo?.animationDuration + 's', 'transition-timing-function': carouselInfo?.trnsactionEffect, 'transition': 'left ' + carouselInfo?.animationDuration + 's', '-webkit-transition': 'left ' + carouselInfo?.animationDuration + 's', 'left': (carouselIndex * carouselInfo?.originalWidth + carouselInfo?.carouselItemInfo.itemOutlineWidth/2) + 'px', 'width': carouselInfo?.originalWidth * carouselInfo?.items.length + 'px', 'height': carouselInfo?.originalHeight + 'px'}">
+      <ul (mousemove)="onMouseMove($event)" (down)="down($event)" (up)="up($event)" [ngStyle]="{'transition-duration': carouselInfo?.animationDuration + 's', 'transition-timing-function': carouselInfo?.trnsactionEffect, 'transition': 'left ' + carouselInfo?.animationDuration + 's', '-webkit-transition': 'left ' + carouselInfo?.animationDuration + 's', 'left': (carouselIndex * carouselInfo?.originalWidth) + 'px', 'width': carouselInfo?.originalWidth * carouselInfo?.items.length + 'px', 'height': carouselInfo?.originalHeight + 'px'}">
         <li *ngFor="let carouselItem of carouselInfo?.items; let i = index" [ngStyle]="{'width': carouselInfo?.originalWidth + 'px', 'height': carouselInfo?.originalHeight + 'px'}">
           <div class="item-content" [ngStyle]="{'outline': carouselInfo?.carouselItemInfo.itemOutlineWidth + 'px solid ' + carouselInfo?.itemOutlineColor}">
             <div  (down)="onCarouselItemSelected(carouselItem)" *ngIf="!carouselItem.multiple" class="carousel-item-container" [ngStyle]="{'width': carouselInfo?.originalWidth + 'px', 'height': carouselInfo?.originalHeight + 'px', 'background-image': 'url(' + carouselItem.img + ')'}">
@@ -35,7 +35,7 @@
         }">
         <div class="selected-item-img" [ngStyle]="{'width': carouselInfo?.selectedItemInfo.imageWidth + 'px', 'height': carouselInfo?.selectedItemInfo.height + 'px', 'background-image': 'url(' + selectedCarouselItem?.selectedImg + ')'}"></div>
 
-        <div class="selected-item-html" [ngStyle]="{'width': carouselInfo?.selectedItemInfo.htmlWidth + 'px', 'height': carouselInfo?.selectedItemInfo.height + 'px'}">
+        <div class="selected-item-html" [ngStyle]="{'max-width': carouselInfo?.selectedItemInfo.htmlWidth + 'px', 'height': carouselInfo?.selectedItemInfo.height + 'px'}">
           <div class="selected-item-html-inner">
             <div class="selected-name" [ngStyle]="{'font-family': carouselInfo?.selectedItemInfo.nameFontFamily, 'color': carouselInfo?.selectedItemInfo.nameColor, 'font-size': carouselInfo?.selectedItemInfo.nameFontSize + 'px'}">{{selectedCarouselItem.name}}</div>
             <div class="selected-desc" [ngStyle]="{'font-family': carouselInfo?.selectedItemInfo.descFontFamily, 'color': carouselInfo?.selectedItemInfo.descColor, 'font-size': carouselInfo?.selectedItemInfo.descFontSize + 'px'}">{{selectedCarouselItem.desc}}</div>

@@ -15,6 +15,7 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnChanges {
 
   @Output() onNotifyCarouselSelected: EventEmitter<Object> = new EventEmitter<any>();
 
+  autoPlayTimer;
   selectedCarouselItem;
   mouseEventManager;
   autoPlayHandler;
@@ -28,8 +29,18 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnChanges {
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
+
+    if (!this.carouselInfo || !this.carouselInfo.itemsInOneScreen) return;
+
     this.closeSelected();
-    this.adjustCarouselInfo();
+
+    let itemsOnScreen = this.getItemsInOneScreen(event.target.innerWidth);
+    if (itemsOnScreen !== this.carouselInfo.itemsInOneScreen) {
+      this.stopAutoPlay();
+      this.resetData();
+    } else {
+      this.adjustCarouselInfo();
+    }
   }
 
 
@@ -170,64 +181,125 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (!changes['carouselInfo'].previousValue && changes['carouselInfo'].currentValue && !this.idleCount) {
-      if (this.carouselInfo.looping) {
-        this.allowMoveLeft = true;
-        this.allowMoveRight = true;
-      }
+      this.carouselInfo.items.forEach((item, index) => {
+        item.index = index;
+      });
+      this.resetData();
+    }
+  }
 
-      if (this.carouselInfo.selectedItemInfo) {
-        this.carouselInfo.selectedItemInfo.paddingOriginal = this.carouselInfo.selectedItemInfo.padding;
-      }
-      this.idleCount = Math.round(CarouselComponent.MIN_IDEL_TIME / this.carouselInfo.autoPlay.duration);
-      if (this.idleCount === 0) {
-        this.idleCount = 1;
-      }
-      this.carouselInfo['originalWidth'] = this.carouselInfo.maxWidth / this.carouselInfo.itemsInOneScreen;
-      this.carouselInfo['originalHeight'] = this.carouselInfo['originalWidth'] * this.carouselInfo.ratioHW;
+  resetData() {
+    this.carouselInfo.itemsInOneScreenGroups.sort((a, b) => {
+      if (a.screenWidth > b.screenWidth) return -1;
+      if (a.screenWidth < b.screenWidth) return 1;
+      return 0;
+    });
 
-      if (!this.carouselInfo.carouselItemInfo.itemOutlineWidth) {
-        this.carouselInfo.carouselItemInfo.itemOutlineWidth = 1;
-      }
-      if (!this.carouselInfo.carouselChildItemInfo.itemOutlineWidth) {
-        this.carouselInfo.carouselChildItemInfo.itemOutlineWidth = 1;
-      }
+    this.carouselInfo.items.sort((a, b) => {
+      if (a.index < b.index) return -1;
+      if (a.index > b.index) return 1;
+      return 0;
+    });
 
-      this.carouselInfo.items.forEach((item) => {
-        if (item['multiple'] === undefined) {
-          item['multiple'] = false;
-          if (item.hasOwnProperty('items')) {
-            item['multiple'] = true;
-            item.items.forEach((child) => {
-              child['size'] = {};
-              child['position'] = {};
-              child.size.width = child.sizeRatio.width * this.carouselInfo.originalWidth;
-              child.size.height = child.sizeRatio.height * this.carouselInfo.originalHeight;
-              child.position.x = child.positionRatio.x * this.carouselInfo.originalWidth;
-              child.position.y = child.positionRatio.y * this.carouselInfo.originalHeight;
-            });
+    this.carouselIndex = 0;
+
+    this.carouselInfo.maxWidth =  this.carouselInfo.maxWidth || this.getMaxScreenWidth();
+    this.carouselInfo.itemsInOneScreen = this.getItemsInOneScreen(window.innerWidth);
+
+    if (this.carouselInfo.looping) {
+      this.allowMoveLeft = true;
+      this.allowMoveRight = true;
+    }
+
+    if (this.carouselInfo.selectedItemInfo && !this.carouselInfo.selectedItemInfo.paddingOriginal) {
+      this.carouselInfo.selectedItemInfo.paddingOriginal = this.carouselInfo.selectedItemInfo.padding;
+    }
+    this.idleCount = Math.round(CarouselComponent.MIN_IDEL_TIME / this.carouselInfo.autoPlay.duration);
+    if (this.idleCount === 0) {
+      this.idleCount = 1;
+    }
+    this.carouselInfo['originalWidth'] = this.carouselInfo.maxWidth / this.carouselInfo.itemsInOneScreen;
+    this.carouselInfo['originalHeight'] = this.carouselInfo['originalWidth'] * this.carouselInfo.ratioHW;
+
+    if (!this.carouselInfo.carouselItemInfo.itemOutlineWidth) {
+      this.carouselInfo.carouselItemInfo.itemOutlineWidth = 1;
+    }
+    if (!this.carouselInfo.carouselChildItemInfo.itemOutlineWidth) {
+      this.carouselInfo.carouselChildItemInfo.itemOutlineWidth = 1;
+    }
+
+    this.carouselInfo.items.forEach((item) => {
+      if (item['multiple'] === undefined) {
+        item['multiple'] = false;
+        if (item.hasOwnProperty('items')) {
+          item['multiple'] = true;
+          item.items.forEach((child) => {
+            child['size'] = {};
+            child['position'] = {};
+            child.size.width = child.sizeRatio.width * this.carouselInfo.originalWidth;
+            child.size.height = child.sizeRatio.height * this.carouselInfo.originalHeight;
+            child.position.x = child.positionRatio.x * this.carouselInfo.originalWidth;
+            child.position.y = child.positionRatio.y * this.carouselInfo.originalHeight;
+          });
+        }
+      }
+    });
+
+    if (this.carouselInfo.autoPlay.enable && !this.autoPlayTimer) {
+      this.autoPlayTimer = Observable.timer(this.carouselInfo.autoPlay.delay, this.carouselInfo.autoPlay.duration);
+
+      this.autoPlayHandler = this.autoPlayTimer.subscribe(() => {
+        if (this.inAutoPlaying) {
+          if (this.moveingDir === CarouselComponent.MOVE_LEFT) {
+            this.moveLeft('auto');
+          } else {
+            this.moveRight('auto');
+          }
+        } else {
+          if (!this.inAutoPlaying && this.idleCountIndex++ > this.idleCount) {
+            this.inAutoPlaying = true;
           }
         }
       });
-
-      if (this.carouselInfo.autoPlay.enable) {
-        const timer = Observable.timer(this.carouselInfo.autoPlay.delay, this.carouselInfo.autoPlay.duration);
-        this.autoPlayHandler = timer.subscribe(() => {
-          if (this.inAutoPlaying) {
-            if (this.moveingDir === CarouselComponent.MOVE_LEFT) {
-              this.moveLeft('auto');
-            } else {
-              this.moveRight('auto');
-            }
-          } else {
-            if (!this.inAutoPlaying && this.idleCountIndex++ > this.idleCount) {
-              this.inAutoPlaying = true;
-            }
-          }
-        });
-      }
-      this.adjustCarouselInfo();
     }
+    this.adjustCarouselInfo();
   }
+
+  getItemsInOneScreen(w) {
+    let account = this.getInOneScreenItesm4MaxScreenWidth();
+
+    this.carouselInfo.itemsInOneScreenGroups.forEach((item) => {
+      if (w < item.screenWidth) {
+        account = item.itemsInOneScreen;
+      }
+    });
+
+    return account;
+  }
+
+  getMaxScreenWidth() {
+    let maxWidth = 0;
+    this.carouselInfo.itemsInOneScreenGroups.forEach((item) => {
+      if (item.screenWidth > maxWidth) {
+        maxWidth = item.screenWidth;
+      }
+    });
+
+    return maxWidth;
+  }
+
+  getInOneScreenItesm4MaxScreenWidth() {
+    let maxWidth = 0, itemsAccount = 0;
+    this.carouselInfo.itemsInOneScreenGroups.forEach((item) => {
+      if (item.screenWidth > maxWidth) {
+        maxWidth = item.screenWidth;
+        itemsAccount = item.itemsInOneScreen;
+      }
+    });
+
+    return itemsAccount;
+  }
+
 
   updateArrowButtonStatus() {
     if (this.carouselInfo.looping) {

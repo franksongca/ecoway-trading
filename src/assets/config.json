@@ -13,8 +13,22 @@
   ],
   "carousel": {
     "looping": true,
-    "maxWidth": 900,
+    "maxWidth": 1200,
     "ratioHW": 0.75,
+    "itemsInOneScreenGroups": [
+      {
+        "screenWidth": 600,
+        "itemsInOneScreen": 2
+      },
+      {
+        "screenWidth": 900,
+        "itemsInOneScreen": 3
+      },
+      {
+        "screenWidth": 1200,
+        "itemsInOneScreen": 4
+      }
+    ],
     "itemsInOneScreen": 2,
     "animationDuration": 2,
     "itemOutlineColor": "white",
