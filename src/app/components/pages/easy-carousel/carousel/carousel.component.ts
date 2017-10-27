@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input, HostListener, SimpleChanges, OnChanges, AfterViewInit } from '@angular/core';
+import { Component, OnDestroy, Output, EventEmitter, Input, HostListener, SimpleChanges, OnChanges, AfterViewInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 @Component({
@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Rx';
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.css']
 })
-export class CarouselComponent implements OnInit, AfterViewInit, OnChanges {
+export class CarouselComponent implements OnDestroy, AfterViewInit, OnChanges {
   static MIN_IDEL_TIME = 5000;
   static  MOVE_LEFT = 0;
   static  MOVE_RIGHT = 1;
@@ -14,7 +14,6 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() carouselInfo: any;
 
   @Output() onNotifyCarouselSelected: EventEmitter<Object> = new EventEmitter<any>();
-
   autoPlayTimer;
   selectedCarouselItem;
   mouseEventManager;
@@ -165,7 +164,25 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnChanges {
     });
   }
 
-  ngOnInit() {
+  ngOnDestroy() {
+    if (this.autoPlayHandler) {
+      this.autoPlayHandler.unsubscribe();
+    }
+
+
+    this.stopAutoPlay();
+    this.mouseEventManager.stopTimers();
+    this.mouseEventManager = null;
+
+    this.carouselIndex = 0;
+    this.allowMoveLeft = true;
+    this.allowMoveRight = false;
+    this.inAutoPlaying = false;
+    this.idleCount = 0;
+    this.idleCountIndex = 0;
+    this.moveingDir = CarouselComponent.MOVE_LEFT;
+    this.resetData();
+
   }
 
   ngAfterViewInit() {
@@ -184,16 +201,20 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnChanges {
       this.carouselInfo.items.forEach((item, index) => {
         item.index = index;
       });
+
+      this.carouselInfo.baseImagePath = this.carouselInfo.baseImagePath || '';
       this.resetData();
     }
   }
 
   resetData() {
-    this.carouselInfo.itemsInOneScreenGroups.sort((a, b) => {
-      if (a.screenWidth > b.screenWidth) return -1;
-      if (a.screenWidth < b.screenWidth) return 1;
-      return 0;
-    });
+    if (this.carouselInfo.itemsInOneScreenGroups) {
+      this.carouselInfo.itemsInOneScreenGroups.sort((a, b) => {
+        if (a.screenWidth > b.screenWidth) return -1;
+        if (a.screenWidth < b.screenWidth) return 1;
+        return 0;
+      });
+    }
 
     this.carouselInfo.items.sort((a, b) => {
       if (a.index < b.index) return -1;
@@ -203,7 +224,7 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnChanges {
 
     this.carouselIndex = 0;
 
-    this.carouselInfo.maxWidth =  this.carouselInfo.maxWidth || this.getMaxScreenWidth();
+    this.carouselInfo.maxWidth =  this.getMaxScreenWidth();
     this.carouselInfo.itemsInOneScreen = this.getItemsInOneScreen(window.innerWidth);
 
     if (this.carouselInfo.looping) {
@@ -268,34 +289,42 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnChanges {
   getItemsInOneScreen(w) {
     let account = this.getInOneScreenItesm4MaxScreenWidth();
 
-    this.carouselInfo.itemsInOneScreenGroups.forEach((item) => {
-      if (w < item.screenWidth) {
-        account = item.itemsInOneScreen;
-      }
-    });
+    if (this.carouselInfo.itemsInOneScreenGroups) {
+      this.carouselInfo.itemsInOneScreenGroups.forEach((item) => {
+        if (w < item.screenWidth) {
+          account = item.itemsInOneScreen;
+        }
+      });
+    }
 
     return account;
   }
 
   getMaxScreenWidth() {
-    let maxWidth = 0;
-    this.carouselInfo.itemsInOneScreenGroups.forEach((item) => {
-      if (item.screenWidth > maxWidth) {
-        maxWidth = item.screenWidth;
-      }
-    });
+    let maxWidth = this.carouselInfo['maxWidth'];
+
+    if (this.carouselInfo.itemsInOneScreenGroups) {
+      this.carouselInfo.itemsInOneScreenGroups.forEach((item) => {
+        if (item.screenWidth > maxWidth) {
+          maxWidth = item.screenWidth;
+        }
+      });
+    }
 
     return maxWidth;
   }
 
   getInOneScreenItesm4MaxScreenWidth() {
-    let maxWidth = 0, itemsAccount = 0;
-    this.carouselInfo.itemsInOneScreenGroups.forEach((item) => {
-      if (item.screenWidth > maxWidth) {
-        maxWidth = item.screenWidth;
-        itemsAccount = item.itemsInOneScreen;
-      }
-    });
+    let maxWidth = 0, itemsAccount = this.carouselInfo['itemsInOneScreen'];
+
+    if (this.carouselInfo.itemsInOneScreenGroups) {
+      this.carouselInfo.itemsInOneScreenGroups.forEach((item) => {
+        if (item.screenWidth > maxWidth) {
+          maxWidth = item.screenWidth;
+          itemsAccount = item.itemsInOneScreen;
+        }
+      });
+    }
 
     return itemsAccount;
   }
@@ -370,7 +399,7 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnChanges {
       }
     });
 
-    if (this.carouselInfo.selectedItemInfo) {
+    if (this.carouselInfo.selectedItemInfo && this.carouselInfo.selectedItemInfo.enable) {
       this.carouselInfo.selectedItemInfo.padding = this.carouselInfo.selectedItemInfo.paddingOriginal * ratio;
       this.carouselInfo.selectedItemInfo['opacity'] = 0;
       this.carouselInfo.selectedItemInfo['nameFontSize'] = this.carouselInfo['originalHeight']/7.5 * 0.7;
@@ -385,7 +414,7 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnChanges {
 
       this.carouselInfo.selectedItemInfo.width = this.carouselInfo.itemsInOneScreen * this.carouselInfo.originalWidth - this.carouselInfo.selectedItemInfo.padding * 2;
       this.carouselInfo.selectedItemInfo.height = this.carouselInfo.originalHeight - this.carouselInfo.selectedItemInfo.padding * 2;
-      this.carouselInfo.selectedItemInfo.imageWidth = this.carouselInfo.selectedItemInfo.height/this.carouselInfo.ratioHW;
+      this.carouselInfo.selectedItemInfo.imageWidth = this.carouselInfo.selectedItemInfo.height / this.carouselInfo.ratioHW;
       this.carouselInfo.selectedItemInfo.htmlWidth = this.carouselInfo.selectedItemInfo.width - this.carouselInfo.selectedItemInfo.imageWidth - this.carouselInfo.selectedItemInfo.padding * 2;
     }
   }
@@ -398,21 +427,22 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnChanges {
       if (goForward) {
         this.stopAutoPlay();
 
-        if (!!this.carouselInfo.selectedItemInfo) {
+        if (!!this.carouselInfo.selectedItemInfo && this.carouselInfo.selectedItemInfo.enable) {
           this.selectedCarouselItem = item;
           Observable.timer(0).subscribe(() => {
             this.carouselInfo.selectedItemInfo.opacity = 1;
           });
+        } else {
+          this.onNotifyCarouselSelected.emit(item.id);
         }
 
-        this.onNotifyCarouselSelected.emit(item.id);
       }
     });
   }
 
-  // onSelectedItemClicked(id) {
-  //   alert('element ' + id + ' selected!');
-  // }
+  onSelectedCarouselItemClicked(id) {
+    this.onNotifyCarouselSelected.emit(id);
+  }
 
   closeSelected() {
     if (this.carouselInfo.selectedItemInfo) {
@@ -485,6 +515,15 @@ export class MouseEventManager {
       this.positionX = -1;
     } else {
       this.allowClick = true;
+    }
+  }
+
+  stopTimers() {
+    if (this.allowCheckTimer) {
+      this.allowCheckTimer.unsubscribe();
+    }
+    if (this.expiredCheckTimer) {
+      this.expiredCheckTimer.unsubscribe();
     }
   }
 }

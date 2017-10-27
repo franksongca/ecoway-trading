@@ -10,9 +10,6 @@
 .carousel-item-container {
   display: inline-block;
   position: relative;
-  background-repeat: no-repeat;
-  background-clip: content-box;
-  background-size: 100% auto;
   overflow: hidden;
 }
 
@@ -24,6 +21,12 @@
   display: inline-block;
   /*background-color: rgba(200, 200, 200, 0.7);*/
   height: 100%;
+}
+
+.selected-item-img, .carousel-item-container, .child-item {
+  background-repeat: no-repeat;
+  background-clip: content-box;
+  background-size: 100% auto;
 }
 
 .selected-item-html {
@@ -53,9 +56,6 @@
 .child-item {
   display: block;
   position: absolute;
-  background-repeat: no-repeat;
-  background-clip: content-box;
-  background-size: 100% auto;
   overflow: hidden;
 }
 
