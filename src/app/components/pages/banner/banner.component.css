@@ -3,6 +3,23 @@
   height: 140px;
   z-index: 1001;
   background-color: gray;
+
+  background-image: url("../../../../assets/img/pages/banner-bg-large.jpg");
+}
+
+.domain {
+  position: absolute;
+  top: 15px;
+  left: 220px;
+  width: 300px;
+  height: 50px;
+  -ms-transform: rotate(-5deg); /* IE 9 */
+  -webkit-transform: rotate(-5deg); /* Chrome, Safari, Opera */
+  transform: rotate(-5deg);
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-position: center;
+  background-image: url("../../../../assets/img/pages/domain.png");
 }
 
 .icon {
@@ -16,18 +33,27 @@
   background-position: center;
 }
 
+.company-name {
+  width: 100%;
+  height: 30px;
+  background-image: url("../../../../assets/img/pages/ecoWAY-Trading.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
 .logo-container {
   cursor: pointer;
   display: inline-block;
   width: 180px;
   text-align: center;
-  padding: 10px;
+  padding-bottom: 10px;
   position: relative;
   height: 100%;
   float: left;
   z-index: 999;
-
-  background-color: green;
+  border-radius: 10px;
+  border: 5px solid rgba(255, 255, 255, 0.4)
 }
 
 .horonzontal-menu-n-domain {
@@ -59,16 +85,8 @@ dropdown-menu {
 
 @media screen and (max-width: 600px) {
   .banner {
-    padding: 5px;
+    padding: 0px;
     height: 100px;
-  }
-
-  .company-name {
-    font-size: 12pt;
-  }
-
-  .web-site-name {
-    font-size: 10pt;
   }
 
   .info {
@@ -89,8 +107,16 @@ dropdown-menu {
     font-size: 250%;
   }
 
+  .dropdown-menu-toggle a {
+    color: white;
+  }
+
   dropdown-menu {
     display: block;
+  }
+
+  .menu-container  {
+
   }
 
   .slider {
@@ -98,11 +124,30 @@ dropdown-menu {
     max-height: 500px; /* approximate max height */
 
     transition-property: all;
-    transition-duration: .5s;
+    transition-duration: 1.5s;
     transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
   }
 
   .slider.closed {
     max-height: 0;
+  }
+
+  .domain {
+    top: 25px;
+    left: 170px;
+    width: 280px;
+    height: 50px;
+  }
+
+}
+
+
+
+@media screen and (max-width: 480px) {
+  .domain {
+    top: 25px;
+    left: 170px;
+    width: 200px;
+    height: 50px;
   }
 }

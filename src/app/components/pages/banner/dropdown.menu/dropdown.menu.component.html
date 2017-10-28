@@ -1,5 +1,5 @@
 <div class="menu-container">
   <ul>
-    <li *ngFor="let menuItem of menu" class="menu-item">{{idx}}<a href="#" (click)="doAction(menuItem.id)">{{menuItem.name}}</a></li>
+    <li *ngFor="let menuItem of menu" class="menu-item" >{{idx}}<a [ngStyle]="{'cursor': menuItem.id !== action ? 'pointer' : 'not-allowed', 'color': menuItem.id !== action ? 'white' : 'gray', 'text-shadow': menuItem.id !== action ? '1px 1px 1px #000' : '1px 1px 1px #fff'}" href="#" (click)="menuItem.id !== action && doAction(menuItem.id)">{{menuItem.name}}</a></li>
   </ul>
 </div>

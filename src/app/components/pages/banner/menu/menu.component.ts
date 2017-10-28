@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MenuShared } from '../menu.shared';
 
 @Component({
@@ -7,7 +7,6 @@ import { MenuShared } from '../menu.shared';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent extends MenuShared implements OnInit {
-
   constructor(){
     super();
   }

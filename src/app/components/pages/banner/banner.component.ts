@@ -7,8 +7,8 @@ import { ActionService } from './../../../services/action.service';
   styleUrls: ['./banner.component.css']
 })
 export class BannerComponent implements OnInit {
-  status = 1;
-
+  status = 1; // dropdown menu status
+  
   constructor() {
     ActionService.onDropdownClose.subscribe(() => {
       if (this.status) {

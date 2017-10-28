@@ -5,18 +5,22 @@ export class MenuShared {
   action = 0;
   menu;
 
-  constructor(){
+  constructor() {
     ConfigService.getConfig().subscribe(
       response => {
         this.menu = response.menu;
       },
       () => console.log('load config error occurs!')
     );
+
+    ActionService.onMenuItemSelected.subscribe((action) => {
+      this.action = action;
+    });
+
   }
 
   doAction(action) {
     this.action = action;
     ActionService.doAction(action);
   }
-
 }

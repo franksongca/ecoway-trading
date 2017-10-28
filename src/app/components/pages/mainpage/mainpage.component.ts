@@ -18,7 +18,7 @@ export class MainpageComponent implements OnInit {
       
       switch (action) {
         case ActionService.ACTIONS.ABOUT:
-              break;
+          break;
         case ActionService.ACTIONS.PRODUCTS:
           break;
         case ActionService.ACTIONS.SERVICES:
