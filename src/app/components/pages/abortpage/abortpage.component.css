@@ -1,8 +1,8 @@
 .about-page-container {
-  background-image: url(./../../../../assets/img/about-bg.jpg);
+  background-image: url(./../../../../assets/img/pages/about-bg.jpg);
   background-repeat: no-repeat;
-  background-size: auto 100%;
-  background-position: center;
+  background-size: cover;
+  background-position: top center;
 }
 
 

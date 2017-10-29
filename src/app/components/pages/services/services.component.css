@@ -1,14 +1,26 @@
 .banner {
   position: relative;
   top: 0;
-  height: 180px;
+  height: 187px;
   width: 100%;
-  background-image: url(./../../../../assets/img/banner-service.jpg);
+  background-image: url(./../../../../assets/img/pages/service-bg.jpg);
   background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  background-size: auto 187px;
+  background-position: top left;
+  background-color: #1b6d85;
 }
 
 
+@media screen and (max-width: 900px) {
+  .banner {
+    height: 140px;
+    background-size: auto 140px;
+  }
+}
+
 @media screen and (max-width: 600px) {
+  .banner {
+    height: 120px;
+    background-size: auto 120px;
+  }
 }

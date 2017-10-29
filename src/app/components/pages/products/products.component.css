@@ -5,13 +5,24 @@
 .banner {
   position: relative;
   top: 0;
-  width: 100%;
-  height: 180px;
-  background-image: url(./../../../../assets/img/product-bg.jpg);
+  height: 187px;
+  background-image: url(./../../../../assets/img/pages/product-bg.jpg);
   background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  background-size: auto 187px;
+  background-position: top left;
+  background-color: #9fa1a0;
+}
+
+@media screen and (max-width: 900px) {
+  .banner {
+    height: 140px;
+    background-size: auto 140px;
+  }
 }
 
 @media screen and (max-width: 600px) {
+  .banner {
+    height: 120px;
+    background-size: auto 120px;
+  }
 }
