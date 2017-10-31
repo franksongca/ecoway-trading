@@ -2,9 +2,7 @@
   position: relative;
   height: 140px;
   z-index: 1001;
-  background-color: gray;
-
-  background-image: url("../../../../assets/img/pages/banner-bg-large.jpg");
+  background-color: rgba(103, 177, 104, 1) /*#67b168;*/
 }
 
 .domain {
@@ -146,8 +144,8 @@ dropdown-menu {
 @media screen and (max-width: 480px) {
   .domain {
     top: 25px;
-    left: 170px;
-    width: 200px;
+    left: 160px;
+    width: 170px;
     height: 50px;
   }
 }

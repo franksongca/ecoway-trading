@@ -33,7 +33,7 @@
         '-moz-box-shadow': carouselInfo?.selectedItemInfo.boxShadow,
         'box-shadow': carouselInfo?.selectedItemInfo.boxShadow
         }">
-        <div class="selected-item-img" [ngStyle]="{'width': carouselInfo?.selectedItemInfo.imageWidth + 'px', 'height': carouselInfo?.selectedItemInfo.height + 'px', 'background-image': 'url(' + carouselInfo?.baseImagePath + selectedCarouselItem?.selectedImg + ')'}">
+        <div class="selected-item-img" [ngStyle]="{'width': carouselInfo?.itemsInOneScreen === 1 ? '100%' : carouselInfo?.selectedItemInfo.imageWidth + 'px', 'height': carouselInfo?.selectedItemInfo.height + 'px', 'background-image': 'url(' + carouselInfo?.baseImagePath + selectedCarouselItem?.selectedImg + ')'}">
           <div [hidden]="carouselInfo?.itemsInOneScreen > 1">
             <ng-container *ngTemplateOutlet="textOfselected"></ng-container>
           </div>
